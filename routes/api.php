@@ -10,7 +10,7 @@ use App\Http\Controllers\v1\DataMaster\Supplier\SupplierController;
 // use App\Http\Controllers\v1\DataMaster\Material\AksesorisController;
 use App\Http\Controllers\v1\DataMaster\Pelanggan\PelangganController;
 use App\Http\Controllers\v1\Settings\Perusahaan\PerusahaanController;
-// use App\Http\Controllers\v1\DataMaster\Material\MaterialKacaController;
+use App\Http\Controllers\v1\DataMaster\Material\MaterialKacaController;
 use App\Http\Controllers\v1\DataMaster\Material\MaterialUpvcController;
 // use App\Http\Controllers\v1\DataMaster\Produk\KategoriProdukController;
 use App\Http\Controllers\v1\Settings\ActivityLog\ActivityLogController;
@@ -94,16 +94,16 @@ Route::prefix('v1')->group(function(){
 
         /* MATERIAL KACA */
         // Route::controller(MaterialKacaController::class)->group(function(){
-        //     Route::get('/material-kaca/options', 'fetchDataOptions')->name('materialKaca.fetchDataOptions');
-        //     Route::get('/material-kaca/all', 'list')->name('materialKaca.list');
-        //     Route::get('/material-kaca', 'index')->name('materialKaca.index');
-        //     Route::post('/material-kaca', 'store')->name('materialKaca.store');
-        //     Route::get('/material-kaca/{id}', 'show')->name('materialKaca.show');
-        //     Route::put('/material-kaca/{id}', 'update')->name('materialKaca.update');
-        //     Route::delete('/material-kaca/{id}', 'destroy')->name('materialKaca.destroy');
-        //     Route::delete('/material-kaca', 'destroyMultiple')->name('materialKaca.destroyMultiple');
-        //     Route::post('/material-kaca/export', 'export')->name('materialKaca.export');
-        // });
+            Route::get('/material-kaca/options', 'fetchDataOptions')->name('materialKaca.fetchDataOptions');
+            Route::get('/material-kaca/all', 'list')->name('materialKaca.list');
+            Route::get('/material-kaca', 'index')->name('materialKaca.index');
+            Route::post('/material-kaca', 'store')->name('materialKaca.store');
+            Route::get('/material-kaca/{id}', 'show')->name('materialKaca.show');
+            Route::put('/material-kaca/{id}', 'update')->name('materialKaca.update');
+            Route::delete('/material-kaca/{id}', 'destroy')->name('materialKaca.destroy');
+            Route::delete('/material-kaca', 'destroyMultiple')->name('materialKaca.destroyMultiple');
+            Route::post('/material-kaca/export', 'export')->name('materialKaca.export');
+        });
 
         /* AKSESORIS */
         // Route::controller(AksesorisController::class)->group(function(){
