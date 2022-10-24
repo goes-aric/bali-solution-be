@@ -8,7 +8,7 @@ use App\Http\Controllers\v1\Settings\User\RoleController;
 use App\Http\Controllers\v1\Settings\User\UserController;
 use App\Http\Controllers\v1\DataMaster\Supplier\SupplierController;
 // use App\Http\Controllers\v1\DataMaster\Material\AksesorisController;
-// use App\Http\Controllers\v1\DataMaster\Pelanggan\PelangganController;
+use App\Http\Controllers\v1\DataMaster\Pelanggan\PelangganController;
 use App\Http\Controllers\v1\Settings\Perusahaan\PerusahaanController;
 // use App\Http\Controllers\v1\DataMaster\Material\MaterialKacaController;
 // use App\Http\Controllers\v1\DataMaster\Material\MaterialUpvcController;
@@ -65,18 +65,18 @@ Route::prefix('v1')->group(function(){
         });
 
         /* PELANGGAN */
-        // Route::controller(PelangganController::class)->group(function(){
-        //     Route::get('/pelanggan/options', 'fetchDataOptions')->name('pelanggan.fetchDataOptions');
-        //     Route::get('/pelanggan/all', 'list')->name('pelanggan.list');
-        //     Route::get('/pelanggan', 'index')->name('pelanggan.index');
-        //     Route::post('/pelanggan', 'store')->name('pelanggan.store');
-        //     Route::get('/pelanggan/{id}', 'show')->name('pelanggan.show');
-        //     Route::put('/pelanggan/{id}', 'update')->name('pelanggan.update');
-        //     Route::delete('/pelanggan/{id}', 'destroy')->name('pelanggan.destroy');
-        //     Route::delete('/pelanggan', 'destroyMultiple')->name('pelanggan.destroyMultiple');
-        //     Route::post('/pelanggan/export', 'export')->name('pelanggan.export');
-        //     Route::post('/pelanggan/draft', 'exportDraft')->name('pelanggan.exportDraft');
-        // });
+        Route::controller(PelangganController::class)->group(function(){
+            Route::get('/pelanggan/options', 'fetchDataOptions')->name('pelanggan.fetchDataOptions');
+            Route::get('/pelanggan/all', 'list')->name('pelanggan.list');
+            Route::get('/pelanggan', 'index')->name('pelanggan.index');
+            Route::post('/pelanggan', 'store')->name('pelanggan.store');
+            Route::get('/pelanggan/{id}', 'show')->name('pelanggan.show');
+            Route::put('/pelanggan/{id}', 'update')->name('pelanggan.update');
+            Route::delete('/pelanggan/{id}', 'destroy')->name('pelanggan.destroy');
+            Route::delete('/pelanggan', 'destroyMultiple')->name('pelanggan.destroyMultiple');
+            Route::post('/pelanggan/export', 'export')->name('pelanggan.export');
+            Route::post('/pelanggan/draft', 'exportDraft')->name('pelanggan.exportDraft');
+        });
 
         /* MATERIAL UPVC */
         // Route::controller(MaterialUpvcController::class)->group(function(){
