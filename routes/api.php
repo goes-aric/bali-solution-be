@@ -12,7 +12,7 @@ use App\Http\Controllers\v1\DataMaster\Pelanggan\PelangganController;
 use App\Http\Controllers\v1\Settings\Perusahaan\PerusahaanController;
 use App\Http\Controllers\v1\DataMaster\Material\MaterialKacaController;
 use App\Http\Controllers\v1\DataMaster\Material\MaterialUpvcController;
-// use App\Http\Controllers\v1\DataMaster\Produk\KategoriProdukController;
+use App\Http\Controllers\v1\DataMaster\Produk\KategoriProdukController;
 use App\Http\Controllers\v1\Settings\ActivityLog\ActivityLogController;
 use App\Http\Controllers\v1\DataMaster\Material\PaketAksesorisController;
 use App\Http\Controllers\v1\DataMaster\Supplier\KontakSupplierController;
@@ -144,15 +144,15 @@ Route::prefix('v1')->group(function(){
 
         /* KATEGORI PRODUK */
         // Route::controller(KategoriProdukController::class)->group(function(){
-        //     Route::get('/kategori-produk/options', 'fetchDataOptions')->name('kategori-produk.fetchDataOptions');
-        //     Route::get('/kategori-produk/all', 'list')->name('kategori-produk.list');
-        //     Route::get('/kategori-produk', 'index')->name('kategori-produk.index');
-        //     Route::post('/kategori-produk', 'store')->name('kategori-produk.store');
-        //     Route::get('/kategori-produk/{id}', 'show')->name('kategori-produk.show');
-        //     Route::put('/kategori-produk/{id}', 'update')->name('kategori-produk.update');
-        //     Route::delete('/kategori-produk/{id}', 'destroy')->name('kategori-produk.destroy');
-        //     Route::delete('/kategori-produk', 'destroyMultiple')->name('kategori-produk.destroyMultiple');
-        // });
+            Route::get('/kategori-produk/options', 'fetchDataOptions')->name('kategori-produk.fetchDataOptions');
+            Route::get('/kategori-produk/all', 'list')->name('kategori-produk.list');
+            Route::get('/kategori-produk', 'index')->name('kategori-produk.index');
+            Route::post('/kategori-produk', 'store')->name('kategori-produk.store');
+            Route::get('/kategori-produk/{id}', 'show')->name('kategori-produk.show');
+            Route::put('/kategori-produk/{id}', 'update')->name('kategori-produk.update');
+            Route::delete('/kategori-produk/{id}', 'destroy')->name('kategori-produk.destroy');
+            Route::delete('/kategori-produk', 'destroyMultiple')->name('kategori-produk.destroyMultiple');
+        });
 
         /* PERUSAHAAN */
         Route::controller(PerusahaanController::class)->group(function(){
