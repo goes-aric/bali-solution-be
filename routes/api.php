@@ -11,7 +11,7 @@ use App\Http\Controllers\v1\DataMaster\Supplier\SupplierController;
 use App\Http\Controllers\v1\DataMaster\Pelanggan\PelangganController;
 use App\Http\Controllers\v1\Settings\Perusahaan\PerusahaanController;
 // use App\Http\Controllers\v1\DataMaster\Material\MaterialKacaController;
-// use App\Http\Controllers\v1\DataMaster\Material\MaterialUpvcController;
+use App\Http\Controllers\v1\DataMaster\Material\MaterialUpvcController;
 // use App\Http\Controllers\v1\DataMaster\Produk\KategoriProdukController;
 use App\Http\Controllers\v1\Settings\ActivityLog\ActivityLogController;
 // use App\Http\Controllers\v1\DataMaster\Material\PaketAksesorisController;
@@ -80,17 +80,17 @@ Route::prefix('v1')->group(function(){
 
         /* MATERIAL UPVC */
         // Route::controller(MaterialUpvcController::class)->group(function(){
-        //     Route::get('/material-upvc/options', 'fetchDataOptions')->name('materialUpvc.fetchDataOptions');
-        //     Route::get('/material-upvc/type', 'fetchDataTypeOptions')->name('materialUpvc.fetchDataTypeOptions');
-        //     Route::get('/material-upvc/all', 'list')->name('materialUpvc.list');
-        //     Route::get('/material-upvc', 'index')->name('materialUpvc.index');
-        //     Route::post('/material-upvc', 'store')->name('materialUpvc.store');
-        //     Route::get('/material-upvc/{id}', 'show')->name('materialUpvc.show');
-        //     Route::put('/material-upvc/{id}', 'update')->name('materialUpvc.update');
-        //     Route::delete('/material-upvc/{id}', 'destroy')->name('materialUpvc.destroy');
-        //     Route::delete('/material-upvc', 'destroyMultiple')->name('materialUpvc.destroyMultiple');
-        //     Route::post('/material-upvc/export', 'export')->name('materialUpvc.export');
-        // });
+            Route::get('/material-upvc/options', 'fetchDataOptions')->name('materialUpvc.fetchDataOptions');
+            Route::get('/material-upvc/type', 'fetchDataTypeOptions')->name('materialUpvc.fetchDataTypeOptions');
+            Route::get('/material-upvc/all', 'list')->name('materialUpvc.list');
+            Route::get('/material-upvc', 'index')->name('materialUpvc.index');
+            Route::post('/material-upvc', 'store')->name('materialUpvc.store');
+            Route::get('/material-upvc/{id}', 'show')->name('materialUpvc.show');
+            Route::put('/material-upvc/{id}', 'update')->name('materialUpvc.update');
+            Route::delete('/material-upvc/{id}', 'destroy')->name('materialUpvc.destroy');
+            Route::delete('/material-upvc', 'destroyMultiple')->name('materialUpvc.destroyMultiple');
+            Route::post('/material-upvc/export', 'export')->name('materialUpvc.export');
+        });
 
         /* MATERIAL KACA */
         // Route::controller(MaterialKacaController::class)->group(function(){
