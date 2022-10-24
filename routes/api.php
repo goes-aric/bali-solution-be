@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\v1\MiscellaneousController;
+use App\Http\Controllers\v1\MiscellaneousController;
 use App\Http\Controllers\v1\Settings\User\AuthController;
 use App\Http\Controllers\v1\Settings\User\RoleController;
 use App\Http\Controllers\v1\Settings\User\UserController;
@@ -33,10 +33,10 @@ Route::prefix('v1')->group(function(){
 
     Route::middleware(['auth:api'])->group(function(){
         /* MISCELLANEOUS */
-        // Route::controller(MiscellaneousController::class)->group(function(){
-        //     Route::get('/satuan-panjang/options', 'fetchUnitLengthOptions')->name('misc.fetchUnitLengthOptions');
-        //     Route::get('/satuan/options', 'fetchUnitOptions')->name('misc.fetchUnitOptions');
-        // });
+        Route::controller(MiscellaneousController::class)->group(function(){
+            Route::get('/satuan-panjang/options', 'fetchUnitLengthOptions')->name('misc.fetchUnitLengthOptions');
+            Route::get('/satuan/options', 'fetchUnitOptions')->name('misc.fetchUnitOptions');
+        });
 
         /* SUPPLIER */
         // Route::controller(SupplierController::class)->group(function(){
