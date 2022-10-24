@@ -13,7 +13,7 @@ use App\Http\Controllers\v1\Settings\User\UserController;
 // use App\Http\Controllers\v1\DataMaster\Material\MaterialKacaController;
 // use App\Http\Controllers\v1\DataMaster\Material\MaterialUpvcController;
 // use App\Http\Controllers\v1\DataMaster\Produk\KategoriProdukController;
-// use App\Http\Controllers\v1\Settings\ActivityLog\ActivityLogController;
+use App\Http\Controllers\v1\Settings\ActivityLog\ActivityLogController;
 // use App\Http\Controllers\v1\DataMaster\Material\PaketAksesorisController;
 // use App\Http\Controllers\v1\DataMaster\Supplier\KontakSupplierController;
 // use App\Http\Controllers\v1\DataMaster\Material\PaketAksesorisMaterialController;
@@ -162,10 +162,10 @@ Route::prefix('v1')->group(function(){
         // });
 
         /* ACTIVITY LOGS */
-        // Route::controller(ActivityLogController::class)->group(function(){
-        //     Route::get('/activity-logs', 'index')->name('activity.index');
-        //     Route::get('/activity-logs/{id}', 'show')->name('activity.show');
-        // });
+        Route::controller(ActivityLogController::class)->group(function(){
+            Route::get('/activity-logs', 'index')->name('activity.index');
+            Route::get('/activity-logs/{id}', 'show')->name('activity.show');
+        });
 
         /* ROLES */
         Route::controller(RoleController::class)->group(function(){
