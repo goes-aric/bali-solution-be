@@ -9,7 +9,7 @@ use App\Http\Controllers\v1\Settings\User\UserController;
 // use App\Http\Controllers\v1\DataMaster\Supplier\SupplierController;
 // use App\Http\Controllers\v1\DataMaster\Material\AksesorisController;
 // use App\Http\Controllers\v1\DataMaster\Pelanggan\PelangganController;
-// use App\Http\Controllers\v1\Settings\Perusahaan\PerusahaanController;
+use App\Http\Controllers\v1\Settings\Perusahaan\PerusahaanController;
 // use App\Http\Controllers\v1\DataMaster\Material\MaterialKacaController;
 // use App\Http\Controllers\v1\DataMaster\Material\MaterialUpvcController;
 // use App\Http\Controllers\v1\DataMaster\Produk\KategoriProdukController;
@@ -155,11 +155,11 @@ Route::prefix('v1')->group(function(){
         // });
 
         /* PERUSAHAAN */
-        // Route::controller(PerusahaanController::class)->group(function(){
-        //     Route::get('/perusahaan/{id}', 'show')->name('perusahaan.show');
-        //     Route::post('/perusahaan', 'save')->name('perusahaan.save');
-        //     Route::delete('/perusahaan/{id}', 'destroy')->name('perusahaan.destroy');
-        // });
+        Route::controller(PerusahaanController::class)->group(function(){
+            Route::get('/perusahaan/{id}', 'show')->name('perusahaan.show');
+            Route::post('/perusahaan', 'save')->name('perusahaan.save');
+            Route::delete('/perusahaan/{id}', 'destroy')->name('perusahaan.destroy');
+        });
 
         /* ACTIVITY LOGS */
         Route::controller(ActivityLogController::class)->group(function(){
