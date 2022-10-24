@@ -7,7 +7,7 @@ use App\Http\Controllers\v1\Settings\User\AuthController;
 use App\Http\Controllers\v1\Settings\User\RoleController;
 use App\Http\Controllers\v1\Settings\User\UserController;
 use App\Http\Controllers\v1\DataMaster\Supplier\SupplierController;
-// use App\Http\Controllers\v1\DataMaster\Material\AksesorisController;
+use App\Http\Controllers\v1\DataMaster\Material\AksesorisController;
 use App\Http\Controllers\v1\DataMaster\Pelanggan\PelangganController;
 use App\Http\Controllers\v1\Settings\Perusahaan\PerusahaanController;
 use App\Http\Controllers\v1\DataMaster\Material\MaterialKacaController;
@@ -106,17 +106,17 @@ Route::prefix('v1')->group(function(){
         });
 
         /* AKSESORIS */
-        // Route::controller(AksesorisController::class)->group(function(){
-        //     Route::get('/aksesoris/options', 'fetchDataOptions')->name('aksesoris.fetchDataOptions');
-        //     Route::get('/aksesoris/all', 'list')->name('aksesoris.list');
-        //     Route::get('/aksesoris', 'index')->name('aksesoris.index');
-        //     Route::post('/aksesoris', 'store')->name('aksesoris.store');
-        //     Route::get('/aksesoris/{id}', 'show')->name('aksesoris.show');
-        //     Route::put('/aksesoris/{id}', 'update')->name('aksesoris.update');
-        //     Route::delete('/aksesoris/{id}', 'destroy')->name('aksesoris.destroy');
-        //     Route::delete('/aksesoris', 'destroyMultiple')->name('aksesoris.destroyMultiple');
-        //     Route::post('/aksesoris/export', 'export')->name('aksesoris.export');
-        // });
+        Route::controller(AksesorisController::class)->group(function(){
+            Route::get('/aksesoris/options', 'fetchDataOptions')->name('aksesoris.fetchDataOptions');
+            Route::get('/aksesoris/all', 'list')->name('aksesoris.list');
+            Route::get('/aksesoris', 'index')->name('aksesoris.index');
+            Route::post('/aksesoris', 'store')->name('aksesoris.store');
+            Route::get('/aksesoris/{id}', 'show')->name('aksesoris.show');
+            Route::put('/aksesoris/{id}', 'update')->name('aksesoris.update');
+            Route::delete('/aksesoris/{id}', 'destroy')->name('aksesoris.destroy');
+            Route::delete('/aksesoris', 'destroyMultiple')->name('aksesoris.destroyMultiple');
+            Route::post('/aksesoris/export', 'export')->name('aksesoris.export');
+        });
 
         /* PAKET AKSESORIS */
         // Route::controller(PaketAksesorisController::class)->group(function(){
