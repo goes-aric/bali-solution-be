@@ -14,9 +14,9 @@ use App\Http\Controllers\v1\DataMaster\Material\MaterialKacaController;
 use App\Http\Controllers\v1\DataMaster\Material\MaterialUpvcController;
 // use App\Http\Controllers\v1\DataMaster\Produk\KategoriProdukController;
 use App\Http\Controllers\v1\Settings\ActivityLog\ActivityLogController;
-// use App\Http\Controllers\v1\DataMaster\Material\PaketAksesorisController;
+use App\Http\Controllers\v1\DataMaster\Material\PaketAksesorisController;
 use App\Http\Controllers\v1\DataMaster\Supplier\KontakSupplierController;
-// use App\Http\Controllers\v1\DataMaster\Material\PaketAksesorisMaterialController;
+use App\Http\Controllers\v1\DataMaster\Material\PaketAksesorisMaterialController;
 
 Route::prefix('v1')->group(function(){
     /* REGISTER & LOGIN (AUTH) */
@@ -119,28 +119,28 @@ Route::prefix('v1')->group(function(){
         });
 
         /* PAKET AKSESORIS */
-        // Route::controller(PaketAksesorisController::class)->group(function(){
-        //     Route::get('/paket-aksesoris/options', 'fetchDataOptions')->name('paketAksesoris.fetchDataOptions');
-        //     Route::get('/paket-aksesoris/all', 'list')->name('paketAksesoris.list');
-        //     Route::get('/paket-aksesoris', 'index')->name('paketAksesoris.index');
-        //     Route::post('/paket-aksesoris', 'store')->name('paketAksesoris.store');
-        //     Route::get('/paket-aksesoris/{id}', 'show')->name('paketAksesoris.show');
-        //     Route::put('/paket-aksesoris/{id}', 'update')->name('paketAksesoris.update');
-        //     Route::delete('/paket-aksesoris/{id}', 'destroy')->name('paketAksesoris.destroy');
-        //     Route::delete('/paket-aksesoris', 'destroyMultiple')->name('paketAksesoris.destroyMultiple');
-        //     Route::post('/paket-aksesoris/export', 'export')->name('paketAksesoris.export');
-        // });
+        Route::controller(PaketAksesorisController::class)->group(function(){
+            Route::get('/paket-aksesoris/options', 'fetchDataOptions')->name('paketAksesoris.fetchDataOptions');
+            Route::get('/paket-aksesoris/all', 'list')->name('paketAksesoris.list');
+            Route::get('/paket-aksesoris', 'index')->name('paketAksesoris.index');
+            Route::post('/paket-aksesoris', 'store')->name('paketAksesoris.store');
+            Route::get('/paket-aksesoris/{id}', 'show')->name('paketAksesoris.show');
+            Route::put('/paket-aksesoris/{id}', 'update')->name('paketAksesoris.update');
+            Route::delete('/paket-aksesoris/{id}', 'destroy')->name('paketAksesoris.destroy');
+            Route::delete('/paket-aksesoris', 'destroyMultiple')->name('paketAksesoris.destroyMultiple');
+            Route::post('/paket-aksesoris/export', 'export')->name('paketAksesoris.export');
+        });
 
         /* PAKET AKSESORIS MATERIAL */
-        // Route::controller(PaketAksesorisMaterialController::class)->group(function(){
-        //     Route::get('/paket-material/all/{id}', 'list')->name('paketMaterial.list');
-        //     Route::get('/paket-material/limit/{id}', 'index')->name('paketMaterial.index');
-        //     Route::post('/paket-material', 'store')->name('paketMaterial.store');
-        //     Route::get('/paket-material/{id}', 'show')->name('paketMaterial.show');
-        //     Route::put('/paket-material/{id}', 'update')->name('paketMaterial.update');
-        //     Route::delete('/paket-material/{id}', 'destroy')->name('paketMaterial.destroy');
-        //     Route::delete('/paket-material', 'destroyMultiple')->name('paketMaterial.destroyMultiple');
-        // });
+        Route::controller(PaketAksesorisMaterialController::class)->group(function(){
+            Route::get('/paket-material/all/{id}', 'list')->name('paketMaterial.list');
+            Route::get('/paket-material/limit/{id}', 'index')->name('paketMaterial.index');
+            Route::post('/paket-material', 'store')->name('paketMaterial.store');
+            Route::get('/paket-material/{id}', 'show')->name('paketMaterial.show');
+            Route::put('/paket-material/{id}', 'update')->name('paketMaterial.update');
+            Route::delete('/paket-material/{id}', 'destroy')->name('paketMaterial.destroy');
+            Route::delete('/paket-material', 'destroyMultiple')->name('paketMaterial.destroyMultiple');
+        });
 
         /* KATEGORI PRODUK */
         // Route::controller(KategoriProdukController::class)->group(function(){
