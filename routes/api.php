@@ -79,7 +79,7 @@ Route::prefix('v1')->group(function(){
         });
 
         /* MATERIAL UPVC */
-        // Route::controller(MaterialUpvcController::class)->group(function(){
+        Route::controller(MaterialUpvcController::class)->group(function(){
             Route::get('/material-upvc/options', 'fetchDataOptions')->name('materialUpvc.fetchDataOptions');
             Route::get('/material-upvc/type', 'fetchDataTypeOptions')->name('materialUpvc.fetchDataTypeOptions');
             Route::get('/material-upvc/all', 'list')->name('materialUpvc.list');
@@ -93,7 +93,7 @@ Route::prefix('v1')->group(function(){
         });
 
         /* MATERIAL KACA */
-        // Route::controller(MaterialKacaController::class)->group(function(){
+        Route::controller(MaterialKacaController::class)->group(function(){
             Route::get('/material-kaca/options', 'fetchDataOptions')->name('materialKaca.fetchDataOptions');
             Route::get('/material-kaca/all', 'list')->name('materialKaca.list');
             Route::get('/material-kaca', 'index')->name('materialKaca.index');
@@ -143,7 +143,7 @@ Route::prefix('v1')->group(function(){
         });
 
         /* KATEGORI PRODUK */
-        // Route::controller(KategoriProdukController::class)->group(function(){
+        Route::controller(KategoriProdukController::class)->group(function(){
             Route::get('/kategori-produk/options', 'fetchDataOptions')->name('kategori-produk.fetchDataOptions');
             Route::get('/kategori-produk/all', 'list')->name('kategori-produk.list');
             Route::get('/kategori-produk', 'index')->name('kategori-produk.index');
