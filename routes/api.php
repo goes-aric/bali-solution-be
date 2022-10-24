@@ -6,7 +6,7 @@ use App\Http\Controllers\v1\MiscellaneousController;
 use App\Http\Controllers\v1\Settings\User\AuthController;
 use App\Http\Controllers\v1\Settings\User\RoleController;
 use App\Http\Controllers\v1\Settings\User\UserController;
-// use App\Http\Controllers\v1\DataMaster\Supplier\SupplierController;
+use App\Http\Controllers\v1\DataMaster\Supplier\SupplierController;
 // use App\Http\Controllers\v1\DataMaster\Material\AksesorisController;
 // use App\Http\Controllers\v1\DataMaster\Pelanggan\PelangganController;
 use App\Http\Controllers\v1\Settings\Perusahaan\PerusahaanController;
@@ -15,7 +15,7 @@ use App\Http\Controllers\v1\Settings\Perusahaan\PerusahaanController;
 // use App\Http\Controllers\v1\DataMaster\Produk\KategoriProdukController;
 use App\Http\Controllers\v1\Settings\ActivityLog\ActivityLogController;
 // use App\Http\Controllers\v1\DataMaster\Material\PaketAksesorisController;
-// use App\Http\Controllers\v1\DataMaster\Supplier\KontakSupplierController;
+use App\Http\Controllers\v1\DataMaster\Supplier\KontakSupplierController;
 // use App\Http\Controllers\v1\DataMaster\Material\PaketAksesorisMaterialController;
 
 Route::prefix('v1')->group(function(){
@@ -39,30 +39,30 @@ Route::prefix('v1')->group(function(){
         });
 
         /* SUPPLIER */
-        // Route::controller(SupplierController::class)->group(function(){
-        //     Route::get('/supplier/options', 'fetchDataOptions')->name('supplier.fetchDataOptions');
-        //     Route::get('/supplier/all', 'list')->name('supplier.list');
-        //     Route::get('/supplier', 'index')->name('supplier.index');
-        //     Route::post('/supplier', 'store')->name('supplier.store');
-        //     Route::get('/supplier/{id}', 'show')->name('supplier.show');
-        //     Route::put('/supplier/{id}', 'update')->name('supplier.update');
-        //     Route::delete('/supplier/{id}', 'destroy')->name('supplier.destroy');
-        //     Route::delete('/supplier', 'destroyMultiple')->name('supplier.destroyMultiple');
-        //     Route::post('/supplier/import', 'import')->name('supplier.import');
-        //     Route::post('/supplier/export', 'export')->name('supplier.export');
-        //     Route::post('/supplier/draft', 'exportDraft')->name('supplier.exportDraft');
-        // });
+        Route::controller(SupplierController::class)->group(function(){
+            Route::get('/supplier/options', 'fetchDataOptions')->name('supplier.fetchDataOptions');
+            Route::get('/supplier/all', 'list')->name('supplier.list');
+            Route::get('/supplier', 'index')->name('supplier.index');
+            Route::post('/supplier', 'store')->name('supplier.store');
+            Route::get('/supplier/{id}', 'show')->name('supplier.show');
+            Route::put('/supplier/{id}', 'update')->name('supplier.update');
+            Route::delete('/supplier/{id}', 'destroy')->name('supplier.destroy');
+            Route::delete('/supplier', 'destroyMultiple')->name('supplier.destroyMultiple');
+            Route::post('/supplier/import', 'import')->name('supplier.import');
+            Route::post('/supplier/export', 'export')->name('supplier.export');
+            Route::post('/supplier/draft', 'exportDraft')->name('supplier.exportDraft');
+        });
 
         /* KONTAK SUPPLIER */
-        // Route::controller(KontakSupplierController::class)->group(function(){
-        //     Route::get('/kontak-supplier/all/{id}', 'list')->name('kontakSupplier.list');
-        //     Route::get('/kontak-supplier/limit/{id}', 'index')->name('kontakSupplier.index');
-        //     Route::post('/kontak-supplier', 'store')->name('kontakSupplier.store');
-        //     Route::get('/kontak-supplier/{id}', 'show')->name('kontakSupplier.show');
-        //     Route::put('/kontak-supplier/{id}', 'update')->name('kontakSupplier.update');
-        //     Route::delete('/kontak-supplier/{id}', 'destroy')->name('kontakSupplier.destroy');
-        //     Route::delete('/kontak-supplier', 'destroyMultiple')->name('kontakSupplier.destroyMultiple');
-        // });
+        Route::controller(KontakSupplierController::class)->group(function(){
+            Route::get('/kontak-supplier/all/{id}', 'list')->name('kontakSupplier.list');
+            Route::get('/kontak-supplier/limit/{id}', 'index')->name('kontakSupplier.index');
+            Route::post('/kontak-supplier', 'store')->name('kontakSupplier.store');
+            Route::get('/kontak-supplier/{id}', 'show')->name('kontakSupplier.show');
+            Route::put('/kontak-supplier/{id}', 'update')->name('kontakSupplier.update');
+            Route::delete('/kontak-supplier/{id}', 'destroy')->name('kontakSupplier.destroy');
+            Route::delete('/kontak-supplier', 'destroyMultiple')->name('kontakSupplier.destroyMultiple');
+        });
 
         /* PELANGGAN */
         // Route::controller(PelangganController::class)->group(function(){
