@@ -2,7 +2,7 @@
 namespace App\Http\Resources\v1\Settings\ActivityLog;
 
 use Carbon\Carbon;
-use App\Http\Resources\v1\Pengaturan\UserResource;
+use App\Http\Resources\v1\Settings\User\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ActivityLogResource extends JsonResource
