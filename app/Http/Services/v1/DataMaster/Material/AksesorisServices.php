@@ -128,15 +128,15 @@ class AksesorisServices extends BaseServices
 
             /* STORE MATERIAL */
             $material = new $this->model;
-            $material->kode             = strtoupper($props['kode']);
-            $material->nama_material    = strtoupper($props['nama_material']);
-            $material->tipe             = $props['tipe'];
-            $material->satuan           = strtoupper($props['satuan']);
-            $material->warna            = strtoupper($props['warna']);
-            $material->gambar           = $imageName;
-            $material->harga_jual       = $props['harga_jual'];
-            $material->status           = $props['status'];
-            $material->created_id       = $this->returnAuthUser()->id;
+            $material->kode                 = strtoupper($props['kode']);
+            $material->nama_material        = strtoupper($props['nama_material']);
+            $material->tipe                 = $props['tipe'];
+            $material->satuan               = strtoupper($props['satuan']);
+            $material->warna                = strtoupper($props['warna']);
+            $material->gambar               = $imageName;
+            $material->harga_beli_terakhir  = $props['harga_beli_terakhir'];
+            $material->status               = $props['status'];
+            $material->created_id           = $this->returnAuthUser()->id;
             $material->save();
 
             /* WRITE LOG */
@@ -208,7 +208,7 @@ class AksesorisServices extends BaseServices
                 $material->satuan               = strtoupper($props['satuan']);
                 $material->warna                = strtoupper($props['warna']);
                 $material->gambar               = $imageName;
-                $material->harga_jual           = $props['harga_jual'];
+                $material->harga_beli_terakhir  = $props['harga_beli_terakhir'];
                 $material->status               = $props['status'];
                 $material->updated_id           = $this->returnAuthUser()->id;
                 $material->update();
@@ -355,7 +355,8 @@ class AksesorisServices extends BaseServices
             $datas = $this->dataFilterPagination($this->model, $props, null);
 
             /* RETRIEVE ALL ROW, CONVERT TO ARRAY AND FORMAT AS RESOURCE */
-            $material = $datas->get();
+            $datas = $datas->get();
+            $material = AksesorisResource::collection($datas);
 
             return $material;
         } catch (Exception $ex) {

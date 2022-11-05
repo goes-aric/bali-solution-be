@@ -61,14 +61,13 @@ class AksesorisController extends BaseController
         // if ($this->checkPermissions($this->moduleName, 'create') == true) {
             try {
                 $rules = [
-                    'kode'              => 'required|max:255|unique:aksesoris,kode,NULL,id,deleted_at,NULL',
-                    'nama_material'     => 'required|max:150|unique:aksesoris,nama_material,NULL,id,deleted_at,NULL',
-                    'satuan'            => 'required',
-                    'warna'             => 'required',
-                    'gambar'            => 'nullable|mimes:jpeg,jpg,png|max:2048',
-                    'harga_beli'        => 'numeric',
-                    'harga_jual'        => 'numeric',
-                    'status'            => 'required',
+                    'kode'                  => 'required|max:255|unique:aksesoris,kode,NULL,id,deleted_at,NULL',
+                    'nama_material'         => 'required|max:150|unique:aksesoris,nama_material,NULL,id,deleted_at,NULL',
+                    'satuan'                => 'required',
+                    'warna'                 => 'required',
+                    'gambar'                => 'nullable|mimes:jpeg,jpg,png|max:2048',
+                    'harga_beli_terakhir'   => 'required|numeric',
+                    'status'                => 'required',
                 ];
                 $validator = $this->returnValidator($request->all(), $rules);
                 if ($validator->fails()) {
@@ -104,14 +103,13 @@ class AksesorisController extends BaseController
         // if ($this->checkPermissions($this->moduleName, 'edit') == true) {
             try {
                 $rules = [
-                    'kode'              => 'required|max:255|unique:aksesoris,kode,'.$id.',id,deleted_at,NULL',
-                    'nama_material'     => 'required|max:150|unique:aksesoris,nama_material,'.$id.',id,deleted_at,NULL',
-                    'satuan'            => 'required',
-                    'warna'             => 'required',
-                    'gambar'            => 'nullable|mimes:jpeg,jpg,png|max:2048',
-                    'harga_beli'        => 'numeric',
-                    'harga_jual'        => 'numeric',
-                    'status'            => 'required',
+                    'kode'                  => 'required|max:255|unique:aksesoris,kode,'.$id.',id,deleted_at,NULL',
+                    'nama_material'         => 'required|max:150|unique:aksesoris,nama_material,'.$id.',id,deleted_at,NULL',
+                    'satuan'                => 'required',
+                    'warna'                 => 'required',
+                    'gambar'                => 'nullable|mimes:jpeg,jpg,png|max:2048',
+                    'harga_beli_terakhir'   => 'required|numeric',
+                    'status'                => 'required',
                 ];
                 $validator = $this->returnValidator($request->all(), $rules);
                 if ($validator->fails()) {

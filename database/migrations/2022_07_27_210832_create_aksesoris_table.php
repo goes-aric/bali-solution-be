@@ -21,9 +21,8 @@ return new class extends Migration
             $table->string('warna', 255)->nullable();
             $table->string('satuan', 150);
             $table->string('gambar', 255)->nullable();
-            $table->decimal('harga_beli', 20, 2)->nullable();
+            $table->decimal('harga_beli_terakhir', 20, 2)->nullable();
             $table->decimal('harga_beli_sebelumnya', 20, 2)->nullable();
-            $table->decimal('harga_jual', 20, 2);
             $table->boolean('status');
             $table->boolean('used_status')->default(0);
             $table->bigInteger('created_id')->unsigned();
