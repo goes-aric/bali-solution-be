@@ -162,16 +162,16 @@ Route::prefix('v1')->group(function(){
         });
 
         /* TIPE PENYESUAIAN */
-        // Route::controller(TipePenyesuaianController::class)->group(function(){
-        //     Route::get('/tipe-penyesuaian/options', 'fetchDataOptions')->name('tipePenyesuaian.fetchDataOptions');
-        //     Route::get('/tipe-penyesuaian/all', 'list')->name('tipePenyesuaian.list');
-        //     Route::get('/tipe-penyesuaian', 'index')->name('tipePenyesuaian.index');
-        //     Route::post('/tipe-penyesuaian', 'store')->name('tipePenyesuaian.store');
-        //     Route::get('/tipe-penyesuaian/{id}', 'show')->name('tipePenyesuaian.show');
-        //     Route::put('/tipe-penyesuaian/{id}', 'update')->name('tipePenyesuaian.update');
-        //     Route::delete('/tipe-penyesuaian/{id}', 'destroy')->name('tipePenyesuaian.destroy');
-        //     Route::delete('/tipe-penyesuaian', 'destroyMultiple')->name('tipePenyesuaian.destroyMultiple');
-        // });
+        Route::controller(TipePenyesuaianController::class)->group(function(){
+            Route::get('/tipe-penyesuaian/options', 'fetchDataOptions')->name('tipePenyesuaian.fetchDataOptions');
+            Route::get('/tipe-penyesuaian/all', 'list')->name('tipePenyesuaian.list');
+            Route::get('/tipe-penyesuaian', 'index')->name('tipePenyesuaian.index');
+            Route::post('/tipe-penyesuaian', 'store')->name('tipePenyesuaian.store');
+            Route::get('/tipe-penyesuaian/{id}', 'show')->name('tipePenyesuaian.show');
+            Route::put('/tipe-penyesuaian/{id}', 'update')->name('tipePenyesuaian.update');
+            Route::delete('/tipe-penyesuaian/{id}', 'destroy')->name('tipePenyesuaian.destroy');
+            Route::delete('/tipe-penyesuaian', 'destroyMultiple')->name('tipePenyesuaian.destroyMultiple');
+        });
 
         /* ACTIVITY LOGS */
         Route::controller(ActivityLogController::class)->group(function(){
