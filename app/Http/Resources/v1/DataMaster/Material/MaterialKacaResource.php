@@ -18,7 +18,7 @@ class MaterialKacaResource extends JsonResource
             'satuan'                => $this->satuan,
             'warna'                 => $this->warna,
             'gambar'                => $this->gambar ? asset('/media/images') . '/' . $this->gambar : null,
-            'harga_beli'            => $this->harga_beli,
+            'harga_beli_terakhir'   => $this->harga_beli_terakhir,
             'harga_beli_sebelumnya' => $this->harga_beli_sebelumnya,
             'harga_jual'            => $this->harga_jual,
             'status'                => $this->status,

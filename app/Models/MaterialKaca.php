@@ -18,15 +18,14 @@ class MaterialKaca extends BaseModel
             'satuan' => 5,
             'warna' => 5,
             'gambar' => 5,
-            'harga_beli' => 5,
+            'harga_beli_terakhir' => 5,
             'harga_beli_sebelumnya' => 5,
-            'harga_jual' => 5,
             'status' => 5,
         ],
     ];
 
     protected $fillable = [
-        'kode', 'nama_material', 'panjang', 'lebar', 'tebal', 'satuan', 'warna', 'gambar', 'harga_beli', 'harga_beli_sebelumnya', 'harga_jual', 'status', 'used_status', 'created_id', 'updated_id',
+        'kode', 'nama_material', 'panjang', 'lebar', 'tebal', 'satuan', 'warna', 'gambar', 'harga_beli_terakhir', 'harga_beli_sebelumnya', 'status', 'used_status', 'created_id', 'updated_id',
     ];
 
     protected $table = 'material_kaca';

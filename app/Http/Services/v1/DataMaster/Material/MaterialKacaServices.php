@@ -128,16 +128,16 @@ class MaterialKacaServices extends BaseServices
 
             /* STORE MATERIAL */
             $material = new $this->model;
-            $material->kode             = strtoupper($props['kode']);
-            $material->nama_material    = strtoupper($props['nama_material']);
-            $material->panjang          = strtoupper($props['panjang']);
-            $material->lebar            = strtoupper($props['lebar']);
-            $material->tebal            = strtoupper($props['tebal']);
-            $material->satuan           = strtoupper($props['satuan']);
-            $material->gambar           = $imageName;
-            $material->harga_jual       = $props['harga_jual'];
-            $material->status           = $props['status'];
-            $material->created_id       = $this->returnAuthUser()->id;
+            $material->kode                 = strtoupper($props['kode']);
+            $material->nama_material        = strtoupper($props['nama_material']);
+            $material->panjang              = strtoupper($props['panjang']);
+            $material->lebar                = strtoupper($props['lebar']);
+            $material->tebal                = strtoupper($props['tebal']);
+            $material->satuan               = strtoupper($props['satuan']);
+            $material->gambar               = $imageName;
+            $material->harga_beli_terakhir  = $props['harga_beli_terakhir'];
+            $material->status               = $props['status'];
+            $material->created_id           = $this->returnAuthUser()->id;
             $material->save();
 
             /* WRITE LOG */
@@ -203,16 +203,16 @@ class MaterialKacaServices extends BaseServices
                 }
 
                 /* UPDATE MATERIAL */
-                $material->kode             = strtoupper($props['kode']);
-                $material->nama_material    = strtoupper($props['nama_material']);
-                $material->panjang          = strtoupper($props['panjang']);
-                $material->lebar            = strtoupper($props['lebar']);
-                $material->tebal            = strtoupper($props['tebal']);
-                $material->satuan           = strtoupper($props['satuan']);
-                $material->gambar           = $imageName;
-                $material->harga_jual       = $props['harga_jual'];
-                $material->status           = $props['status'];
-                $material->updated_id       = $this->returnAuthUser()->id;
+                $material->kode                 = strtoupper($props['kode']);
+                $material->nama_material        = strtoupper($props['nama_material']);
+                $material->panjang              = strtoupper($props['panjang']);
+                $material->lebar                = strtoupper($props['lebar']);
+                $material->tebal                = strtoupper($props['tebal']);
+                $material->satuan               = strtoupper($props['satuan']);
+                $material->gambar               = $imageName;
+                $material->harga_beli_terakhir  = $props['harga_beli_terakhir'];
+                $material->status               = $props['status'];
+                $material->updated_id           = $this->returnAuthUser()->id;
                 $material->update();
 
                 /* WRITE LOG */

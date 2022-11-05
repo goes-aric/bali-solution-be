@@ -61,16 +61,15 @@ class MaterialKacaController extends BaseController
         // if ($this->checkPermissions($this->moduleName, 'create') == true) {
             try {
                 $rules = [
-                    'kode'              => 'required|max:150|unique:material_kaca,kode,NULL,id,deleted_at,NULL',
-                    'nama_material'     => 'required|max:255|unique:material_kaca,nama_material,NULL,id,deleted_at,NULL',
-                    'panjang'           => 'required',
-                    'lebar'             => 'required',
-                    'tebal'             => 'required',
-                    'satuan'            => 'required',
-                    'gambar'            => 'nullable|mimes:jpeg,jpg,png|max:2048',
-                    'harga_beli'        => 'numeric',
-                    'harga_jual'        => 'numeric',
-                    'status'            => 'required',
+                    'kode'                  => 'required|max:150|unique:material_kaca,kode,NULL,id,deleted_at,NULL',
+                    'nama_material'         => 'required|max:255|unique:material_kaca,nama_material,NULL,id,deleted_at,NULL',
+                    'panjang'               => 'required|numeric',
+                    'lebar'                 => 'required|numeric',
+                    'tebal'                 => 'required|numeric',
+                    'satuan'                => 'required',
+                    'gambar'                => 'nullable|mimes:jpeg,jpg,png|max:2048',
+                    'harga_beli_terakhir'   => 'required|numeric',
+                    'status'                => 'required',
                 ];
                 $validator = $this->returnValidator($request->all(), $rules);
                 if ($validator->fails()) {
@@ -106,16 +105,15 @@ class MaterialKacaController extends BaseController
         // if ($this->checkPermissions($this->moduleName, 'edit') == true) {
             try {
                 $rules = [
-                    'kode'              => 'required|max:150|unique:material_kaca,kode,'.$id.',id,deleted_at,NULL',
-                    'nama_material'     => 'required|max:255|unique:material_kaca,nama_material,'.$id.',id,deleted_at,NULL',
-                    'panjang'           => 'required',
-                    'lebar'             => 'required',
-                    'tebal'             => 'required',
-                    'satuan'            => 'required',
-                    'gambar'            => 'nullable|mimes:jpeg,jpg,png|max:2048',
-                    'harga_beli'        => 'numeric',
-                    'harga_jual'        => 'numeric',
-                    'status'            => 'required',
+                    'kode'                  => 'required|max:150|unique:material_kaca,kode,'.$id.',id,deleted_at,NULL',
+                    'nama_material'         => 'required|max:255|unique:material_kaca,nama_material,'.$id.',id,deleted_at,NULL',
+                    'panjang'               => 'required|numeric',
+                    'lebar'                 => 'required|numeric',
+                    'tebal'                 => 'required|numeric',
+                    'satuan'                => 'required',
+                    'gambar'                => 'nullable|mimes:jpeg,jpg,png|max:2048',
+                    'harga_beli_terakhir'   => 'required|numeric',
+                    'status'                => 'required',
                 ];
                 $validator = $this->returnValidator($request->all(), $rules);
                 if ($validator->fails()) {
