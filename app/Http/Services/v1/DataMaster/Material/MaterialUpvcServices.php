@@ -14,7 +14,6 @@ class MaterialUpvcServices extends BaseServices
     private $moduleName;
     private $oldValues;
     private $newValues;
-    private $typeMaterial = ["KK", "GB", "KGB", "BR", "SF", "BESI"];
 
     public function __construct()
     {
@@ -129,16 +128,15 @@ class MaterialUpvcServices extends BaseServices
 
             /* STORE MATERIAL */
             $material = new $this->model;
-            $material->tipe             = strtoupper($props['tipe']);
-            $material->kode             = strtoupper($props['kode']);
-            $material->nama_material    = strtoupper($props['nama_material']);
-            $material->panjang          = strtoupper($props['panjang']);
-            $material->satuan           = strtoupper($props['satuan']);
-            $material->warna            = strtoupper($props['warna']);
-            $material->gambar           = $imageName;
-            $material->harga_jual       = $props['harga_jual'];
-            $material->status           = $props['status'];
-            $material->created_id       = $this->returnAuthUser()->id;
+            $material->kode                 = strtoupper($props['kode']);
+            $material->nama_material        = strtoupper($props['nama_material']);
+            $material->panjang              = strtoupper($props['panjang']);
+            $material->satuan               = strtoupper($props['satuan']);
+            $material->warna                = strtoupper($props['warna']);
+            $material->gambar               = $imageName;
+            $material->harga_beli_terakhir  = $props['harga_beli_terakhir'];
+            $material->status               = $props['status'];
+            $material->created_id           = $this->returnAuthUser()->id;
             $material->save();
 
             /* WRITE LOG */
@@ -204,16 +202,15 @@ class MaterialUpvcServices extends BaseServices
                 }
 
                 /* UPDATE MATERIAL */
-                $material->tipe             = strtoupper($props['tipe']);
-                $material->kode             = strtoupper($props['kode']);
-                $material->nama_material    = strtoupper($props['nama_material']);
-                $material->panjang          = strtoupper($props['panjang']);
-                $material->satuan           = strtoupper($props['satuan']);
-                $material->warna            = strtoupper($props['warna']);
-                $material->gambar           = $imageName;
-                $material->harga_jual       = $props['harga_jual'];
-                $material->status           = $props['status'];
-                $material->updated_id       = $this->returnAuthUser()->id;
+                $material->kode                 = strtoupper($props['kode']);
+                $material->nama_material        = strtoupper($props['nama_material']);
+                $material->panjang              = strtoupper($props['panjang']);
+                $material->satuan               = strtoupper($props['satuan']);
+                $material->warna                = strtoupper($props['warna']);
+                $material->gambar               = $imageName;
+                $material->harga_beli_terakhir  = $props['harga_beli_terakhir'];
+                $material->status               = $props['status'];
+                $material->updated_id           = $this->returnAuthUser()->id;
                 $material->update();
 
                 /* WRITE LOG */
@@ -374,17 +371,5 @@ class MaterialUpvcServices extends BaseServices
             return $data;
         }
         return null;
-    }
-
-    /* FETCH TYPE MATERIAL FOR OPTIONS */
-    public function fetchTipeOptions(){
-        try {
-            /* GET TYPE MATERIAL */
-            $type = $this->typeMaterial;
-
-            return $type;
-        } catch (Exception $ex) {
-            throw $ex;
-        }
     }
 }

@@ -62,16 +62,14 @@ class MaterialUpvcController extends BaseController
         // if ($this->checkPermissions($this->moduleName, 'create') == true) {
             try {
                 $rules = [
-                    'tipe'          => 'required',
-                    'kode'          => 'required|max:150|unique:material_upvc,kode,NULL,id,deleted_at,NULL',
-                    'nama_material' => 'required|max:255',
-                    'panjang'       => 'nullable',
-                    'satuan'        => 'required',
-                    'warna'         => 'required',
-                    'gambar'        => 'nullable|mimes:jpeg,jpg,png|max:2048',
-                    'harga_beli'    => 'numeric',
-                    'harga_jual'    => 'numeric',
-                    'status'        => 'required',
+                    'kode'                  => 'required|max:150|unique:material_upvc,kode,NULL,id,deleted_at,NULL',
+                    'nama_material'         => 'required|max:255',
+                    'panjang'               => 'nullable|numeric',
+                    'satuan'                => 'required',
+                    'warna'                 => 'required',
+                    'gambar'                => 'nullable|mimes:jpeg,jpg,png|max:2048',
+                    'harga_beli_terakhir'   => 'required|numeric',
+                    'status'                => 'required',
                 ];
                 $validator = $this->returnValidator($request->all(), $rules);
                 if ($validator->fails()) {
@@ -107,16 +105,14 @@ class MaterialUpvcController extends BaseController
         // if ($this->checkPermissions($this->moduleName, 'edit') == true) {
             try {
                 $rules = [
-                    'tipe'          => 'required',
-                    'kode'          => 'required|max:150|unique:material_upvc,kode,'.$id.',id,deleted_at,NULL',
-                    'nama_material' => 'required|max:255',
-                    'panjang'       => 'nullable',
-                    'satuan'        => 'required',
-                    'warna'         => 'required',
-                    'gambar'        => 'nullable|mimes:jpeg,jpg,png|max:2048',
-                    'harga_beli'    => 'numeric',
-                    'harga_jual'    => 'numeric',
-                    'status'        => 'required',
+                    'kode'                  => 'required|max:150|unique:material_upvc,kode,'.$id.',id,deleted_at,NULL',
+                    'nama_material'         => 'required|max:255',
+                    'panjang'               => 'nullable|numeric',
+                    'satuan'                => 'required',
+                    'warna'                 => 'required',
+                    'gambar'                => 'nullable|mimes:jpeg,jpg,png|max:2048',
+                    'harga_beli_terakhir'   => 'required|numeric',
+                    'status'                => 'required',
                 ];
                 $validator = $this->returnValidator($request->all(), $rules);
                 if ($validator->fails()) {
@@ -210,17 +206,6 @@ class MaterialUpvcController extends BaseController
             $material = $this->materialUpvcServices->fetchDataOptions($props);
 
             return $this->returnResponse('success', self::HTTP_OK, 'Daftar material', $material);
-        } catch (Exception $ex) {
-            return $this->returnExceptionResponse('error', self::HTTP_BAD_REQUEST, $ex);
-        }
-    }
-
-    public function fetchDataTypeOptions()
-    {
-        try {
-            $type = $this->materialUpvcServices->fetchTipeOptions();
-
-            return $this->returnResponse('success', self::HTTP_OK, 'Daftar tipe material', $type);
         } catch (Exception $ex) {
             return $this->returnExceptionResponse('error', self::HTTP_BAD_REQUEST, $ex);
         }
