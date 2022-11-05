@@ -6,6 +6,7 @@ use Exception;
 use App\Models\Supplier;
 use App\Imports\BaseImport;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use App\Http\Services\v1\BaseServices;
 use App\Http\Resources\v1\DataMaster\Supplier\SupplierResource;
 
@@ -279,6 +280,9 @@ class SupplierServices extends BaseServices
 
     /* IMPORT SUPPLIER FROM EXCEL FILE */
     public function import($props){
+        /* BEGIN DB TRANSACTION */
+        DB::beginTransaction();
+
         /* PREPARE TO LOAD EXCEL DATA AS ARRAY */
         $import = new BaseImport;
         Excel::import($import, $props->file('file'));
@@ -286,104 +290,116 @@ class SupplierServices extends BaseServices
 
         /* DECLARE REQUIRE VARIABLES */
         $data = [];
-        $exist = 0;
+        $exist = null;
         $incomplete = 0;
         $incompletes = [];
+        $error = false;
         $errors = [];
         $message = null;
 
         /* RUNNING QUERY COMMAND */
         try {
             foreach ($rows as $row) {
-                $supplier = $this->checkExistSupplier($row['supplier']);
+                if (array_key_exists('nama_supplier', $row) && array_key_exists('alamat', $row) && array_key_exists('kode_pos', $row)
+                    && array_key_exists('kota', $row)) {
 
-                if (!$row['supplier']) {
-                    $incomplete++;
-                    $incompletes[] = [
-                        'supplier'  => $row['supplier']
-                    ];
-                } elseif ($supplier) {
-                    $exist++;
-                    $errors[] = [
-                        'supplier'  => $row['supplier']
-                    ];
+                    /* CHECK EXIST SUPPLIER */
+                    $exist = $this->checkExistSupplier($row['nama_supplier']);
+
+                    if ($exist) {
+                        $error = true;
+                        $errors[] = [
+                            'nama_supplier' => strtoupper($row['nama_supplier']),
+                            'alamat'        => strtoupper($row['alamat']),
+                            'kode_pos'      => strtoupper($row['kode_pos']),
+                            'kota'          => strtoupper($row['kota'])
+                        ];
+                    } else {
+                        if (!$row['nama_supplier']) {
+                            $error = true;
+                            $incomplete++;
+
+                            $incompletes[] = [
+                                'nama_supplier' => strtoupper($row['nama_supplier']),
+                                'alamat'        => strtoupper($row['alamat']),
+                                'kode_pos'      => strtoupper($row['kode_pos']),
+                                'kota'          => strtoupper($row['kota'])
+                            ];
+                        } else {
+                            $data[] = [
+                                'nama_supplier' => strtoupper($row['nama_supplier']),
+                                'alamat'        => strtoupper($row['alamat']) ?? null,
+                                'kode_pos'      => strtoupper($row['kode_pos']) ?? null,
+                                'kota'          => strtoupper($row['kota']) ?? null
+                            ];
+                        }
+                    }
                 } else {
-                    $data[] = [
-                        'nama_supplier' => $row['supplier'],
-                        'alamat'        => $row['alamat'] ?? null,
-                        'kode_pos'      => $row['kode_pos'] ?? null,
-                        'kota'          => $row['kota'] ?? null
-                    ];
+                    /* RETURN RESPONSE */
+                    throw new Exception('Konsep excel tidak valid! Silakan periksa file excel Anda.');
                 }
             }
 
-            if ($errors) {
+            if ($error) {
                 if ($incomplete > 0) {
                     $message = "Beberapa baris data perlu dilengkapi!";
                     $errors = $incompletes;
-                } elseif ($exist > 0) {
-                    $message = "Beberap data supplier telah terdaftar di database!";
+                } elseif ($exist) {
+                    $message = "Beberapa data supplier telah terdaftar di sistem!";
                 } else {
                     $message = "Terjadi kesalahan tak terduga!";
                 }
 
-                $errors = array_unique($errors, SORT_REGULAR);
-                $data = [];
-                foreach ($errors as $item) {
-                    $data[] = [
-                        'supplier'  => strtoupper($item['supplier'])
+                $returnResponse = [
+                    'status'        => 'error',
+                    'status_code'   => Response::HTTP_BAD_REQUEST,
+                    'message'       => $message,
+                    'data'          => $errors
+                ];
+                return $returnResponse;
+            } else {
+                /* REMOVE DUPLICATE DATA */
+                $data = array_unique($data, SORT_REGULAR);
+                $props = [];
+                foreach ($data as $item) {
+                    $props[] = [
+                        'nama_supplier' => strtoupper($item['nama_supplier']),
+                        'alamat'        => strtoupper($item['alamat']) ?? null,
+                        'kode_pos'      => strtoupper($item['kode_pos']) ?? null,
+                        'kota'          => strtoupper($item['kota']) ?? null,
+                        'created_id'    => $this->returnAuthUser()->id,
+                        'created_at'    => $this->carbon::now(),
+                        'updated_at'    => $this->carbon::now()
                     ];
                 }
-                return $this->returnResponse('error', Response::HTTP_BAD_REQUEST, $message, $data);
-            } else {
-                $rules = [
-                    '*.nama_supplier'   => 'required|string|max:255',
-                    '*.alamat'          => 'nullable',
-                    '*.kode_pos'        => 'nullable',
-                    '*.kota'            => 'nullable',
+
+                /* MASS INSERT INTO TABLE */
+                $this->model::insert($props);
+
+                /* WRITE LOG */
+                $this->newValues = $props;
+                $logParameters = [
+                    'status'        => 'success',
+                    'module'        => $this->moduleName,
+                    'event'         => 'created',
+                    'description'   => 'Impor data supplier',
+                    'user_id'       => $this->returnAuthUser()->id ?? null,
+                    'old_values'    => $this->oldValues,
+                    'new_values'    => $this->newValues
                 ];
-                $validator = $this->returnValidator($data, $rules);
+                $this->writeActivityLog($logParameters);
 
-                switch (true) {
-                    case $validator->passes():
-                        /* REMOVE DUPLICATE DATA */
-                        $data = array_unique($data, SORT_REGULAR);
-                        $props = [];
-                        foreach ($data as $item) {
-                            $props[] = [
-                                'nama_supplier' => strtoupper($item['nama_supplier']),
-                                'alamat'        => strtoupper($item['alamat']) ?? null,
-                                'kode_pos'      => strtoupper($item['kode_pos']) ?? null,
-                                'kota'          => strtoupper($item['kota']) ?? null,
-                                'created_id'    => $this->returnAuthUser()->id,
-                                'created_at'    => $this->carbon::now(),
-                                'updated_at'    => $this->carbon::now()
-                            ];
-                        }
+                /* COMMIT TRANSACTION */
+                DB::commit();
 
-                        /* MASS INSERT INTO TABLE */
-                        $this->model::insert($props);
-
-                        /* WRITE LOG */
-                        $this->newValues = $props;
-                        $logParameters = [
-                            'status'        => 'success',
-                            'module'        => $this->moduleName,
-                            'event'         => 'created',
-                            'description'   => 'Impor data supplier',
-                            'user_id'       => $this->returnAuthUser()->id ?? null,
-                            'old_values'    => $this->oldValues,
-                            'new_values'    => $this->newValues
-                        ];
-                        $this->writeActivityLog($logParameters);
-
-                        return $this->returnResponse('success', Response::HTTP_CREATED, "Impor data supplier berhasil");
-                        break;
-
-                    case $validator->fails():
-                        return $this->returnResponse('error', Response::HTTP_UNPROCESSABLE_ENTITY, $validator->errors());
-                        break;
-                }
+                /* RETURN RESPONSE */
+                $returnResponse = [
+                    'status'        => 'success',
+                    'status_code'   => Response::HTTP_OK,
+                    'message'       => 'Impor data supplier berhasil',
+                    'data'          => null
+                ];
+                return $returnResponse;
             }
         } catch (Exception $ex) {
             /* WRITE LOG */
@@ -398,6 +414,10 @@ class SupplierServices extends BaseServices
             ];
             $this->writeActivityLog($logParameters);
 
+            /* ROLLBACK TRANSACTION */
+            DB::rollback();
+
+            /* RETURN RESPONSE */
             throw $ex;
         }
     }

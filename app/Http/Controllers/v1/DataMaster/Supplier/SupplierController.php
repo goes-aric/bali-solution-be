@@ -150,15 +150,19 @@ class SupplierController extends BaseController
         // if ($this->checkPermissions($this->moduleName, 'create') == true) {
             try {
                 $rules = [
-                    'file'  => 'required',
+                    'file'  => 'required|max:10000|mimes:xls,xlsx,csv',
                 ];
                 $validator = $this->returnValidator($request->all(), $rules);
                 if ($validator->fails()) {
                     return $this->returnResponse('error', self::HTTP_UNPROCESSABLE_ENTITY, $validator->errors());
                 }
 
-                $suppliers = $this->supplierServices->import($request);
-                return $this->returnResponse('success', self::HTTP_OK, 'Berhasil', $suppliers);
+                $response = $this->supplierServices->import($request);
+                if ($response['status'] == 'error') {
+                    return $this->returnResponse('error', $response['status_code'], $response['message'], $response['data']);
+                }
+
+                return $this->returnResponse('success', $response['status_code'], $response['message'], $response['data']);
             } catch (Exception $ex) {
                 return $this->returnExceptionResponse('error', self::HTTP_BAD_REQUEST, $ex);
             }
