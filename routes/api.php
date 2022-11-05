@@ -16,6 +16,7 @@ use App\Http\Controllers\v1\DataMaster\Produk\KategoriProdukController;
 use App\Http\Controllers\v1\Settings\ActivityLog\ActivityLogController;
 use App\Http\Controllers\v1\DataMaster\Material\PaketAksesorisController;
 use App\Http\Controllers\v1\DataMaster\Supplier\KontakSupplierController;
+use App\Http\Controllers\v1\Settings\TipePenyesuaian\TipePenyesuaianController;
 use App\Http\Controllers\v1\DataMaster\Material\PaketAksesorisMaterialController;
 
 Route::prefix('v1')->group(function(){
@@ -81,7 +82,6 @@ Route::prefix('v1')->group(function(){
         /* MATERIAL UPVC */
         Route::controller(MaterialUpvcController::class)->group(function(){
             Route::get('/material-upvc/options', 'fetchDataOptions')->name('materialUpvc.fetchDataOptions');
-            Route::get('/material-upvc/type', 'fetchDataTypeOptions')->name('materialUpvc.fetchDataTypeOptions');
             Route::get('/material-upvc/all', 'list')->name('materialUpvc.list');
             Route::get('/material-upvc', 'index')->name('materialUpvc.index');
             Route::post('/material-upvc', 'store')->name('materialUpvc.store');
@@ -144,14 +144,14 @@ Route::prefix('v1')->group(function(){
 
         /* KATEGORI PRODUK */
         Route::controller(KategoriProdukController::class)->group(function(){
-            Route::get('/kategori-produk/options', 'fetchDataOptions')->name('kategori-produk.fetchDataOptions');
-            Route::get('/kategori-produk/all', 'list')->name('kategori-produk.list');
-            Route::get('/kategori-produk', 'index')->name('kategori-produk.index');
-            Route::post('/kategori-produk', 'store')->name('kategori-produk.store');
-            Route::get('/kategori-produk/{id}', 'show')->name('kategori-produk.show');
-            Route::put('/kategori-produk/{id}', 'update')->name('kategori-produk.update');
-            Route::delete('/kategori-produk/{id}', 'destroy')->name('kategori-produk.destroy');
-            Route::delete('/kategori-produk', 'destroyMultiple')->name('kategori-produk.destroyMultiple');
+            Route::get('/kategori-produk/options', 'fetchDataOptions')->name('kategoriProduk.fetchDataOptions');
+            Route::get('/kategori-produk/all', 'list')->name('kategoriProduk.list');
+            Route::get('/kategori-produk', 'index')->name('kategoriProduk.index');
+            Route::post('/kategori-produk', 'store')->name('kategoriProduk.store');
+            Route::get('/kategori-produk/{id}', 'show')->name('kategoriProduk.show');
+            Route::put('/kategori-produk/{id}', 'update')->name('kategoriProduk.update');
+            Route::delete('/kategori-produk/{id}', 'destroy')->name('kategoriProduk.destroy');
+            Route::delete('/kategori-produk', 'destroyMultiple')->name('kategoriProduk.destroyMultiple');
         });
 
         /* PERUSAHAAN */
@@ -160,6 +160,18 @@ Route::prefix('v1')->group(function(){
             Route::post('/perusahaan', 'save')->name('perusahaan.save');
             Route::delete('/perusahaan/{id}', 'destroy')->name('perusahaan.destroy');
         });
+
+        /* TIPE PENYESUAIAN */
+        // Route::controller(TipePenyesuaianController::class)->group(function(){
+        //     Route::get('/tipe-penyesuaian/options', 'fetchDataOptions')->name('tipePenyesuaian.fetchDataOptions');
+        //     Route::get('/tipe-penyesuaian/all', 'list')->name('tipePenyesuaian.list');
+        //     Route::get('/tipe-penyesuaian', 'index')->name('tipePenyesuaian.index');
+        //     Route::post('/tipe-penyesuaian', 'store')->name('tipePenyesuaian.store');
+        //     Route::get('/tipe-penyesuaian/{id}', 'show')->name('tipePenyesuaian.show');
+        //     Route::put('/tipe-penyesuaian/{id}', 'update')->name('tipePenyesuaian.update');
+        //     Route::delete('/tipe-penyesuaian/{id}', 'destroy')->name('tipePenyesuaian.destroy');
+        //     Route::delete('/tipe-penyesuaian', 'destroyMultiple')->name('tipePenyesuaian.destroyMultiple');
+        // });
 
         /* ACTIVITY LOGS */
         Route::controller(ActivityLogController::class)->group(function(){
