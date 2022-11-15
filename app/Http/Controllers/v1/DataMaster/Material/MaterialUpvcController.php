@@ -68,7 +68,7 @@ class MaterialUpvcController extends BaseController
                     'satuan'                => 'required',
                     'warna'                 => 'required',
                     'gambar'                => 'nullable|mimes:jpeg,jpg,png|max:2048',
-                    'harga_beli_terakhir'   => 'required|numeric',
+                    'harga_beli_terakhir'   => 'nullable|numeric',
                     'status'                => 'required',
                 ];
                 $validator = $this->returnValidator($request->all(), $rules);
@@ -111,7 +111,7 @@ class MaterialUpvcController extends BaseController
                     'satuan'                => 'required',
                     'warna'                 => 'required',
                     'gambar'                => 'nullable|mimes:jpeg,jpg,png|max:2048',
-                    'harga_beli_terakhir'   => 'required|numeric',
+                    'harga_beli_terakhir'   => 'nullable|numeric',
                     'status'                => 'required',
                 ];
                 $validator = $this->returnValidator($request->all(), $rules);
