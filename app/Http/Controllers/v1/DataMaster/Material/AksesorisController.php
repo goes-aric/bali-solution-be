@@ -64,9 +64,9 @@ class AksesorisController extends BaseController
                     'kode'                  => 'required|max:255|unique:aksesoris,kode,NULL,id,deleted_at,NULL',
                     'nama_material'         => 'required|max:150|unique:aksesoris,nama_material,NULL,id,deleted_at,NULL',
                     'satuan'                => 'required',
-                    'warna'                 => 'required',
+                    'warna'                 => 'nullable',
                     'gambar'                => 'nullable|mimes:jpeg,jpg,png|max:2048',
-                    'harga_beli_terakhir'   => 'required|numeric',
+                    'harga_beli_terakhir'   => 'nullable|numeric',
                     'status'                => 'required',
                 ];
                 $validator = $this->returnValidator($request->all(), $rules);
@@ -106,9 +106,9 @@ class AksesorisController extends BaseController
                     'kode'                  => 'required|max:255|unique:aksesoris,kode,'.$id.',id,deleted_at,NULL',
                     'nama_material'         => 'required|max:150|unique:aksesoris,nama_material,'.$id.',id,deleted_at,NULL',
                     'satuan'                => 'required',
-                    'warna'                 => 'required',
+                    'warna'                 => 'nullable',
                     'gambar'                => 'nullable|mimes:jpeg,jpg,png|max:2048',
-                    'harga_beli_terakhir'   => 'required|numeric',
+                    'harga_beli_terakhir'   => 'nullable|numeric',
                     'status'                => 'required',
                 ];
                 $validator = $this->returnValidator($request->all(), $rules);
