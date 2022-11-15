@@ -63,12 +63,12 @@ class MaterialKacaController extends BaseController
                 $rules = [
                     'kode'                  => 'required|max:150|unique:material_kaca,kode,NULL,id,deleted_at,NULL',
                     'nama_material'         => 'required|max:255|unique:material_kaca,nama_material,NULL,id,deleted_at,NULL',
-                    'panjang'               => 'required|numeric',
-                    'lebar'                 => 'required|numeric',
-                    'tebal'                 => 'required|numeric',
+                    'panjang'               => 'nullable|numeric',
+                    'lebar'                 => 'nullable|numeric',
+                    'tebal'                 => 'nullable|numeric',
                     'satuan'                => 'required',
                     'gambar'                => 'nullable|mimes:jpeg,jpg,png|max:2048',
-                    'harga_beli_terakhir'   => 'required|numeric',
+                    'harga_beli_terakhir'   => 'nullable|numeric',
                     'status'                => 'required',
                 ];
                 $validator = $this->returnValidator($request->all(), $rules);
@@ -107,12 +107,12 @@ class MaterialKacaController extends BaseController
                 $rules = [
                     'kode'                  => 'required|max:150|unique:material_kaca,kode,'.$id.',id,deleted_at,NULL',
                     'nama_material'         => 'required|max:255|unique:material_kaca,nama_material,'.$id.',id,deleted_at,NULL',
-                    'panjang'               => 'required|numeric',
-                    'lebar'                 => 'required|numeric',
-                    'tebal'                 => 'required|numeric',
+                    'panjang'               => 'nullable|numeric',
+                    'lebar'                 => 'nullable|numeric',
+                    'tebal'                 => 'nullable|numeric',
                     'satuan'                => 'required',
                     'gambar'                => 'nullable|mimes:jpeg,jpg,png|max:2048',
-                    'harga_beli_terakhir'   => 'required|numeric',
+                    'harga_beli_terakhir'   => 'nullable|numeric',
                     'status'                => 'required',
                 ];
                 $validator = $this->returnValidator($request->all(), $rules);
