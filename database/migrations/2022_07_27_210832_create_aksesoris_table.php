@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('gambar', 255)->nullable();
             $table->decimal('harga_beli_terakhir', 20, 2)->nullable();
             $table->decimal('harga_beli_sebelumnya', 20, 2)->nullable();
+            $table->decimal('harga_jual', 20, 2)->nullable();
             $table->boolean('status');
             $table->boolean('used_status')->default(0);
             $table->bigInteger('created_id')->unsigned();

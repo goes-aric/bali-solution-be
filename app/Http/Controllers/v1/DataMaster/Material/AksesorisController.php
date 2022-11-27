@@ -67,6 +67,7 @@ class AksesorisController extends BaseController
                     'warna'                 => 'nullable',
                     'gambar'                => 'nullable|mimes:jpeg,jpg,png|max:2048',
                     'harga_beli_terakhir'   => 'nullable|numeric',
+                    'harga_jual'            => 'nullable|numeric',
                     'status'                => 'required',
                 ];
                 $validator = $this->returnValidator($request->all(), $rules);
@@ -109,6 +110,7 @@ class AksesorisController extends BaseController
                     'warna'                 => 'nullable',
                     'gambar'                => 'nullable|mimes:jpeg,jpg,png|max:2048',
                     'harga_beli_terakhir'   => 'nullable|numeric',
+                    'harga_jual'            => 'nullable|numeric',
                     'status'                => 'required',
                 ];
                 $validator = $this->returnValidator($request->all(), $rules);

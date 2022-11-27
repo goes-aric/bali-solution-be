@@ -24,7 +24,7 @@ class Aksesoris extends BaseModel
     ];
 
     protected $fillable = [
-        'kode', 'nama_material', 'tipe', 'satuan', 'warna', 'gambar', 'harga_beli_terakhir', 'harga_beli_sebelumnya', 'status', 'used_status', 'created_id', 'updated_id',
+        'kode', 'nama_material', 'tipe', 'satuan', 'warna', 'gambar', 'harga_beli_terakhir', 'harga_beli_sebelumnya', 'harga_jual', 'status', 'used_status', 'created_id', 'updated_id',
     ];
 
     protected $table = 'aksesoris';

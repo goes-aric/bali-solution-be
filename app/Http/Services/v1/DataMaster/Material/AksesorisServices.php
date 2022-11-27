@@ -135,6 +135,7 @@ class AksesorisServices extends BaseServices
             $material->warna                = strtoupper($props['warna']);
             $material->gambar               = $imageName;
             $material->harga_beli_terakhir  = $props['harga_beli_terakhir'];
+            $material->harga_jual           = $props['harga_jual'];
             $material->status               = $props['status'];
             $material->created_id           = $this->returnAuthUser()->id;
             $material->save();
@@ -209,6 +210,7 @@ class AksesorisServices extends BaseServices
                 $material->warna                = strtoupper($props['warna']);
                 $material->gambar               = $imageName;
                 $material->harga_beli_terakhir  = $props['harga_beli_terakhir'];
+                $material->harga_jual           = $props['harga_jual'];
                 $material->status               = $props['status'];
                 $material->updated_id           = $this->returnAuthUser()->id;
                 $material->update();
