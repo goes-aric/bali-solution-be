@@ -13,19 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('paket_produk_material_kaca', function (Blueprint $table) {
+        Schema::create('kaca', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('paket_produk_id')->unsigned();
-            $table->foreign('paket_produk_id')->references('id')->on('paket_produk')->onDelete('cascade');
-            $table->bigInteger('material_id')->unsigned();
-            $table->foreign('material_id')->references('id')->on('material_kaca')->onDelete('cascade');
             $table->string('kode', 255);
             $table->string('nama_material', 255);
             $table->string('panjang', 255)->nullable();
             $table->string('lebar', 255)->nullable();
             $table->string('tebal', 255)->nullable();
-            $table->string('satuan', 150)->nullable();
-            $table->string('tipe', 255);
+            $table->string('satuan', 150);
+            $table->string('gambar', 255)->nullable();
+            $table->decimal('harga_beli_terakhir', 20, 2)->nullable();
+            $table->decimal('harga_beli_sebelumnya', 20, 2)->nullable();
+            $table->decimal('harga_beli_konversi', 20, 2)->nullable();
+            $table->decimal('harga_jual', 20, 2)->nullable();
+            $table->boolean('status');
+            $table->boolean('used_status')->default(0);
             $table->bigInteger('created_id')->unsigned();
             $table->foreign('created_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('updated_id')->unsigned()->nullable();
@@ -42,6 +44,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('paket_produk_material_kaca');
+        Schema::dropIfExists('kaca');
     }
 };

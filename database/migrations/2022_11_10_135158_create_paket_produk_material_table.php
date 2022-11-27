@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('paket_produk_material_upvc', function (Blueprint $table) {
+        Schema::create('paket_produk_material', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('paket_produk_id')->unsigned();
             $table->foreign('paket_produk_id')->references('id')->on('paket_produk')->onDelete('cascade');
             $table->bigInteger('material_id')->unsigned();
-            $table->foreign('material_id')->references('id')->on('material_upvc')->onDelete('cascade');
+            $table->foreign('material_id')->references('id')->on('material')->onDelete('cascade');
             $table->string('kode', 255);
             $table->string('nama_material', 255);
-            $table->string('panjang', 255)->nullable();
             $table->string('warna', 255)->nullable();
+            $table->string('panjang', 255)->nullable();
             $table->string('satuan', 150)->nullable();
             $table->string('tipe', 255);
             $table->bigInteger('created_id')->unsigned();
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('paket_produk_material_upvc');
+        Schema::dropIfExists('paket_produk_material');
     }
 };

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('nama_paket_produk', 255);
             $table->string('warna', 255);
             $table->string('satuan', 255);
+            $table->string('gambar', 255)->nullable();
             $table->bigInteger('created_id')->unsigned();
             $table->foreign('created_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('updated_id')->unsigned()->nullable();

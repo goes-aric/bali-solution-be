@@ -4,16 +4,16 @@ namespace App\Http\Controllers\v1\DataMaster\Produk;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\v1\BaseController;
-use App\Http\Services\v1\DataMaster\Produk\PaketProdukMaterialKacaServices;
+use App\Http\Services\v1\DataMaster\Produk\PaketProdukKacaServices;
 
-class PaketProdukMaterialKacaController extends BaseController
+class PaketProdukKacaController extends BaseController
 {
-    private $materialKacaServices;
+    private $kacaServices;
     private $moduleName;
 
-    public function __construct(PaketProdukMaterialKacaServices $materialKacaServices)
+    public function __construct(PaketProdukKacaServices $kacaServices)
     {
-        $this->materialKacaServices = $materialKacaServices;
+        $this->kacaServices = $kacaServices;
         $this->moduleName = 'Paket Produk';
     }
 
@@ -26,7 +26,7 @@ class PaketProdukMaterialKacaController extends BaseController
                     'paket_produk_id'   => $request['paket_produk_id'],
                     'tipe'              => $request['tipe']
                 ];
-                $Material = $this->materialKacaServices->fetchAll($props);
+                $Material = $this->kacaServices->fetchAll($props);
 
                 return $this->returnResponse('success', self::HTTP_OK, 'Daftar material', $Material);
             } catch (Exception $ex) {
@@ -46,7 +46,7 @@ class PaketProdukMaterialKacaController extends BaseController
                     'paket_produk_id'   => $request['paket_produk_id'],
                     'tipe'              => $request['tipe']
                 ];
-                $Material = $this->materialKacaServices->fetchLimit($props);
+                $Material = $this->kacaServices->fetchLimit($props);
 
                 return $this->returnResponse('success', self::HTTP_OK, 'Daftar material', $Material);
             } catch (Exception $ex) {
@@ -76,7 +76,7 @@ class PaketProdukMaterialKacaController extends BaseController
                     return $this->returnResponse('error', self::HTTP_UNPROCESSABLE_ENTITY, $validator->errors());
                 }
 
-                $Material = $this->materialKacaServices->createMaterial($request);
+                $Material = $this->kacaServices->createMaterial($request);
                 return $this->returnResponse('success', self::HTTP_OK, 'Material berhasil ditambahkan', $Material);
             } catch (Exception $ex) {
                 return $this->returnExceptionResponse('error', self::HTTP_BAD_REQUEST, $ex);
@@ -90,7 +90,7 @@ class PaketProdukMaterialKacaController extends BaseController
     {
         // if ($this->checkPermissions($this->moduleName, 'view') == true) {
             try {
-                $Material = $this->materialKacaServices->fetchById($id);
+                $Material = $this->kacaServices->fetchById($id);
                 return $this->returnResponse('success', self::HTTP_OK, 'Detail material', $Material);
             } catch (Exception $ex) {
                 return $this->returnExceptionResponse('error', self::HTTP_BAD_REQUEST, $ex);
@@ -119,7 +119,7 @@ class PaketProdukMaterialKacaController extends BaseController
                     return $this->returnResponse('error', self::HTTP_UNPROCESSABLE_ENTITY, $validator->errors());
                 }
 
-                $Material = $this->materialKacaServices->updateMaterial($request, $id);
+                $Material = $this->kacaServices->updateMaterial($request, $id);
                 return $this->returnResponse('success', self::HTTP_OK, 'Material berhasil diperbaharui', $Material);
             } catch (Exception $ex) {
                 return $this->returnExceptionResponse('error', self::HTTP_BAD_REQUEST, $ex);
@@ -133,7 +133,7 @@ class PaketProdukMaterialKacaController extends BaseController
     {
         // if ($this->checkPermissions($this->moduleName, 'delete') == true) {
             try {
-                $Material = $this->materialKacaServices->destroyMaterial($id);
+                $Material = $this->kacaServices->destroyMaterial($id);
                 return $this->returnResponse('success', self::HTTP_OK, 'Catatan berhasil dihapus!', $Material);
             } catch (Exception $ex) {
                 return $this->returnExceptionResponse('error', self::HTTP_BAD_REQUEST, $ex);
@@ -148,7 +148,7 @@ class PaketProdukMaterialKacaController extends BaseController
         // if ($this->checkPermissions($this->moduleName, 'delete') == true) {
             try {
                 $props = $request->data;
-                $Material = $this->materialKacaServices->destroyMultipleMaterial($props);
+                $Material = $this->kacaServices->destroyMultipleMaterial($props);
 
                 return $this->returnResponse('success', self::HTTP_OK, 'Catatan berhasil dihapus!', $Material);
             } catch (Exception $ex) {

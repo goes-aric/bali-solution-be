@@ -4,7 +4,7 @@ namespace App\Models;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class MaterialKaca extends BaseModel
+class Kaca extends BaseModel
 {
     use SoftDeletes;
 
@@ -20,13 +20,15 @@ class MaterialKaca extends BaseModel
             'gambar' => 5,
             'harga_beli_terakhir' => 5,
             'harga_beli_sebelumnya' => 5,
+            'harga_beli_konversi' => 5,
+            'harga_jual' => 5,
             'status' => 5,
         ],
     ];
 
     protected $fillable = [
-        'kode', 'nama_material', 'panjang', 'lebar', 'tebal', 'satuan', 'warna', 'gambar', 'harga_beli_terakhir', 'harga_beli_sebelumnya', 'status', 'used_status', 'created_id', 'updated_id',
+        'kode', 'nama_material', 'panjang', 'lebar', 'tebal', 'satuan', 'warna', 'gambar', 'harga_beli_terakhir', 'harga_beli_sebelumnya', 'harga_beli_konversi', 'harga_jual', 'status', 'used_status', 'created_id', 'updated_id',
     ];
 
-    protected $table = 'material_kaca';
+    protected $table = 'kaca';
 }

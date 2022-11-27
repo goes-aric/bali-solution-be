@@ -4,10 +4,10 @@ namespace App\Http\Services\v1\DataMaster\Material;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Services\v1\BaseServices;
-use App\Http\Resources\v1\DataMaster\Material\MaterialKacaResource;
-use App\Models\MaterialKaca;
+use App\Http\Resources\v1\DataMaster\Material\KacaResource;
+use App\Models\Kaca;
 
-class MaterialKacaServices extends BaseServices
+class KacaServices extends BaseServices
 {
     /* PRIVATE VARIABLE */
     private $model;
@@ -17,8 +17,8 @@ class MaterialKacaServices extends BaseServices
 
     public function __construct()
     {
-        $this->model = new MaterialKaca();
-        $this->moduleName = 'Material Kaca';
+        $this->model = new Kaca();
+        $this->moduleName = 'Kaca';
     }
 
     /* FETCH ALL MATERIAL */
@@ -34,7 +34,7 @@ class MaterialKacaServices extends BaseServices
 
             /* RETRIEVE ALL ROW, CONVERT TO ARRAY AND FORMAT AS RESOURCE */
             $datas = $datas->get();
-            $material = MaterialKacaResource::collection($datas);
+            $material = KacaResource::collection($datas);
 
             return $material;
         } catch (Exception $ex) {
@@ -68,7 +68,7 @@ class MaterialKacaServices extends BaseServices
 
             /* RETRIEVE ALL ROW, CONVERT TO ARRAY AND FORMAT AS RESOURCE */
             $datas = $datas->get();
-            $datas = MaterialKacaResource::collection($datas);
+            $datas = KacaResource::collection($datas);
             $material = [
                 "total" => $totalData,
                 "total_filter" => $totalFiltered,
@@ -94,7 +94,7 @@ class MaterialKacaServices extends BaseServices
         try {
             $material = $this->model::find($id);
             if ($material) {
-                $material = MaterialKacaResource::make($material);
+                $material = KacaResource::make($material);
                 return $material;
             }
 
@@ -136,6 +136,8 @@ class MaterialKacaServices extends BaseServices
             $material->satuan               = strtoupper($props['satuan']);
             $material->gambar               = $imageName;
             $material->harga_beli_terakhir  = $props['harga_beli_terakhir'];
+            $material->harga_beli_konversi  = $props['harga_beli_konversi'];
+            $material->harga_jual           = $props['harga_jual'];
             $material->status               = $props['status'];
             $material->created_id           = $this->returnAuthUser()->id;
             $material->save();
@@ -153,7 +155,7 @@ class MaterialKacaServices extends BaseServices
             ];
             $this->writeActivityLog($logParameters);
 
-            $material = MaterialKacaResource::make($material);
+            $material = KacaResource::make($material);
             return $material;
         } catch (Exception $ex) {
             /* WRITE LOG */
@@ -211,6 +213,8 @@ class MaterialKacaServices extends BaseServices
                 $material->satuan               = strtoupper($props['satuan']);
                 $material->gambar               = $imageName;
                 $material->harga_beli_terakhir  = $props['harga_beli_terakhir'];
+                $material->harga_beli_konversi  = $props['harga_beli_konversi'];
+                $material->harga_jual           = $props['harga_jual'];
                 $material->status               = $props['status'];
                 $material->updated_id           = $this->returnAuthUser()->id;
                 $material->update();
@@ -228,7 +232,7 @@ class MaterialKacaServices extends BaseServices
                 ];
                 $this->writeActivityLog($logParameters);
 
-                $material = MaterialKacaResource::make($material);
+                $material = KacaResource::make($material);
                 return $material;
             } else {
                 throw new Exception('Catatan tidak ditemukan!');
@@ -342,7 +346,7 @@ class MaterialKacaServices extends BaseServices
 
             /* RETRIEVE ALL ROW, CONVERT TO ARRAY AND FORMAT AS RESOURCE */
             $datas = $datas->get();
-            $material = MaterialKacaResource::collection($datas);
+            $material = KacaResource::collection($datas);
 
             return $material;
         } catch (Exception $ex) {

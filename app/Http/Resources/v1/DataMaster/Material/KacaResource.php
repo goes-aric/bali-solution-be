@@ -4,7 +4,7 @@ namespace App\Http\Resources\v1\DataMaster\Material;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MaterialKacaResource extends JsonResource
+class KacaResource extends JsonResource
 {
     public function toArray($request)
     {
@@ -20,6 +20,7 @@ class MaterialKacaResource extends JsonResource
             'gambar'                => $this->gambar ? asset('/media/images') . '/' . $this->gambar : null,
             'harga_beli_terakhir'   => $this->harga_beli_terakhir,
             'harga_beli_sebelumnya' => $this->harga_beli_sebelumnya,
+            'harga_beli_konversi'   => $this->harga_beli_konversi,
             'harga_jual'            => $this->harga_jual,
             'status'                => $this->status,
             'status_text'           => $this->status == 1 ? 'AKTIF' : 'TIDAK AKTIF',
