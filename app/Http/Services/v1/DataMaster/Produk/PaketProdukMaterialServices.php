@@ -3,9 +3,9 @@ namespace App\Http\Services\v1\DataMaster\Produk;
 
 use Exception;
 use App\Http\Services\v1\BaseServices;
-use App\Models\PaketProdukMaterialUpvc;
+use App\Models\PaketProdukMaterial;
 
-class PaketProdukMaterialUpvcServices extends BaseServices
+class PaketProdukMaterialServices extends BaseServices
 {
     /* PRIVATE VARIABLE */
     private $model;
@@ -15,7 +15,7 @@ class PaketProdukMaterialUpvcServices extends BaseServices
 
     public function __construct()
     {
-        $this->model = new PaketProdukMaterialUpvc();
+        $this->model = new PaketProdukMaterial();
         $this->moduleName = 'Paket Produk';
     }
 
