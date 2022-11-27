@@ -4,10 +4,10 @@ namespace App\Http\Services\v1\DataMaster\Material;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Services\v1\BaseServices;
-use App\Http\Resources\v1\DataMaster\Material\MaterialUpvcResource;
-use App\Models\MaterialUpvc;
+use App\Http\Resources\v1\DataMaster\Material\MaterialResource;
+use App\Models\Material;
 
-class MaterialUpvcServices extends BaseServices
+class MaterialServices extends BaseServices
 {
     /* PRIVATE VARIABLE */
     private $model;
@@ -17,8 +17,8 @@ class MaterialUpvcServices extends BaseServices
 
     public function __construct()
     {
-        $this->model = new MaterialUpvc();
-        $this->moduleName = 'Material UPVC';
+        $this->model = new Material();
+        $this->moduleName = 'Material';
     }
 
     /* FETCH ALL MATERIAL */
@@ -34,7 +34,7 @@ class MaterialUpvcServices extends BaseServices
 
             /* RETRIEVE ALL ROW, CONVERT TO ARRAY AND FORMAT AS RESOURCE */
             $datas = $datas->get();
-            $material = MaterialUpvcResource::collection($datas);
+            $material = MaterialResource::collection($datas);
 
             return $material;
         } catch (Exception $ex) {
@@ -68,7 +68,7 @@ class MaterialUpvcServices extends BaseServices
 
             /* RETRIEVE ALL ROW, CONVERT TO ARRAY AND FORMAT AS RESOURCE */
             $datas = $datas->get();
-            $datas = MaterialUpvcResource::collection($datas);
+            $datas = MaterialResource::collection($datas);
             $material = [
                 "total" => $totalData,
                 "total_filter" => $totalFiltered,
@@ -94,7 +94,7 @@ class MaterialUpvcServices extends BaseServices
         try {
             $material = $this->model::find($id);
             if ($material) {
-                $material = MaterialUpvcResource::make($material);
+                $material = MaterialResource::make($material);
                 return $material;
             }
 
@@ -135,6 +135,8 @@ class MaterialUpvcServices extends BaseServices
             $material->warna                = strtoupper($props['warna']);
             $material->gambar               = $imageName;
             $material->harga_beli_terakhir  = $props['harga_beli_terakhir'];
+            $material->harga_beli_konversi  = $props['harga_beli_konversi'];
+            $material->harga_jual           = $props['harga_jual'];
             $material->status               = $props['status'];
             $material->created_id           = $this->returnAuthUser()->id;
             $material->save();
@@ -152,7 +154,7 @@ class MaterialUpvcServices extends BaseServices
             ];
             $this->writeActivityLog($logParameters);
 
-            $material = MaterialUpvcResource::make($material);
+            $material = MaterialResource::make($material);
             return $material;
         } catch (Exception $ex) {
             /* WRITE LOG */
@@ -209,6 +211,8 @@ class MaterialUpvcServices extends BaseServices
                 $material->warna                = strtoupper($props['warna']);
                 $material->gambar               = $imageName;
                 $material->harga_beli_terakhir  = $props['harga_beli_terakhir'];
+                $material->harga_beli_konversi  = $props['harga_beli_konversi'];
+                $material->harga_jual           = $props['harga_jual'];
                 $material->status               = $props['status'];
                 $material->updated_id           = $this->returnAuthUser()->id;
                 $material->update();
@@ -226,7 +230,7 @@ class MaterialUpvcServices extends BaseServices
                 ];
                 $this->writeActivityLog($logParameters);
 
-                $material = MaterialUpvcResource::make($material);
+                $material = MaterialResource::make($material);
                 return $material;
             } else {
                 throw new Exception('Catatan tidak ditemukan!');
@@ -340,7 +344,7 @@ class MaterialUpvcServices extends BaseServices
 
             /* RETRIEVE ALL ROW, CONVERT TO ARRAY AND FORMAT AS RESOURCE */
             $datas = $datas->get();
-            $material = MaterialUpvcResource::collection($datas);
+            $material = MaterialResource::collection($datas);
 
             return $material;
         } catch (Exception $ex) {

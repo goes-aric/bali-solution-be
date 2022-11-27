@@ -13,16 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('material_upvc', function (Blueprint $table) {
+        Schema::create('material', function (Blueprint $table) {
             $table->id();
             $table->string('kode', 255);
             $table->string('nama_material', 255);
-            $table->string('panjang', 255)->nullable();
             $table->string('warna', 255);
+            $table->string('panjang', 255)->nullable();
             $table->string('satuan', 150);
             $table->string('gambar', 255)->nullable();
             $table->decimal('harga_beli_terakhir', 20, 2)->nullable();
             $table->decimal('harga_beli_sebelumnya', 20, 2)->nullable();
+            $table->decimal('harga_beli_konversi', 20, 2)->nullable();
+            $table->decimal('harga_jual', 20, 2)->nullable();
             $table->boolean('status');
             $table->boolean('used_status')->default(0);
             $table->bigInteger('created_id')->unsigned();
@@ -41,6 +43,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('material_upvc');
+        Schema::dropIfExists('material');
     }
 };

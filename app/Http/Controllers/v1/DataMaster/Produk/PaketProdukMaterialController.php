@@ -4,16 +4,16 @@ namespace App\Http\Controllers\v1\DataMaster\Produk;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\v1\BaseController;
-use App\Http\Services\v1\DataMaster\Produk\PaketProdukMaterialUpvcServices;
+use App\Http\Services\v1\DataMaster\Produk\PaketProdukMaterialServices;
 
-class PaketProdukMaterialUpvcController extends BaseController
+class PaketProdukMaterialController extends BaseController
 {
-    private $materialUpvcServices;
+    private $materialServices;
     private $moduleName;
 
-    public function __construct(PaketProdukMaterialUpvcServices $materialUpvcServices)
+    public function __construct(PaketProdukMaterialServices $materialServices)
     {
-        $this->materialUpvcServices = $materialUpvcServices;
+        $this->materialServices = $materialServices;
         $this->moduleName = 'Paket Produk';
     }
 
@@ -26,7 +26,7 @@ class PaketProdukMaterialUpvcController extends BaseController
                     'paket_produk_id'   => $request['paket_produk_id'],
                     'tipe'              => $request['tipe']
                 ];
-                $material = $this->materialUpvcServices->fetchAll($props);
+                $material = $this->materialServices->fetchAll($props);
 
                 return $this->returnResponse('success', self::HTTP_OK, 'Daftar material', $material);
             } catch (Exception $ex) {
@@ -46,7 +46,7 @@ class PaketProdukMaterialUpvcController extends BaseController
                     'paket_produk_id'   => $request['paket_produk_id'],
                     'tipe'              => $request['tipe']
                 ];
-                $material = $this->materialUpvcServices->fetchLimit($props);
+                $material = $this->materialServices->fetchLimit($props);
 
                 return $this->returnResponse('success', self::HTTP_OK, 'Daftar material', $material);
             } catch (Exception $ex) {
@@ -75,7 +75,7 @@ class PaketProdukMaterialUpvcController extends BaseController
                     return $this->returnResponse('error', self::HTTP_UNPROCESSABLE_ENTITY, $validator->errors());
                 }
 
-                $material = $this->materialUpvcServices->createMaterial($request);
+                $material = $this->materialServices->createMaterial($request);
                 return $this->returnResponse('success', self::HTTP_OK, 'Material berhasil ditambahkan', $material);
             } catch (Exception $ex) {
                 return $this->returnExceptionResponse('error', self::HTTP_BAD_REQUEST, $ex);
@@ -89,7 +89,7 @@ class PaketProdukMaterialUpvcController extends BaseController
     {
         // if ($this->checkPermissions($this->moduleName, 'view') == true) {
             try {
-                $material = $this->materialUpvcServices->fetchById($id);
+                $material = $this->materialServices->fetchById($id);
                 return $this->returnResponse('success', self::HTTP_OK, 'Detail material', $material);
             } catch (Exception $ex) {
                 return $this->returnExceptionResponse('error', self::HTTP_BAD_REQUEST, $ex);
@@ -117,7 +117,7 @@ class PaketProdukMaterialUpvcController extends BaseController
                     return $this->returnResponse('error', self::HTTP_UNPROCESSABLE_ENTITY, $validator->errors());
                 }
 
-                $material = $this->materialUpvcServices->updateMaterial($request, $id);
+                $material = $this->materialServices->updateMaterial($request, $id);
                 return $this->returnResponse('success', self::HTTP_OK, 'Material berhasil diperbaharui', $material);
             } catch (Exception $ex) {
                 return $this->returnExceptionResponse('error', self::HTTP_BAD_REQUEST, $ex);
@@ -131,7 +131,7 @@ class PaketProdukMaterialUpvcController extends BaseController
     {
         // if ($this->checkPermissions($this->moduleName, 'delete') == true) {
             try {
-                $material = $this->materialUpvcServices->destroyMaterial($id);
+                $material = $this->materialServices->destroyMaterial($id);
                 return $this->returnResponse('success', self::HTTP_OK, 'Catatan berhasil dihapus!', $material);
             } catch (Exception $ex) {
                 return $this->returnExceptionResponse('error', self::HTTP_BAD_REQUEST, $ex);
@@ -146,7 +146,7 @@ class PaketProdukMaterialUpvcController extends BaseController
         // if ($this->checkPermissions($this->moduleName, 'delete') == true) {
             try {
                 $props = $request->data;
-                $material = $this->materialUpvcServices->destroyMultipleMaterial($props);
+                $material = $this->materialServices->destroyMultipleMaterial($props);
 
                 return $this->returnResponse('success', self::HTTP_OK, 'Catatan berhasil dihapus!', $material);
             } catch (Exception $ex) {

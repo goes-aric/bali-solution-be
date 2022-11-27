@@ -4,19 +4,19 @@ namespace App\Http\Controllers\v1\DataMaster\Material;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\v1\BaseController;
-use App\Http\Services\v1\DataMaster\Material\MaterialUpvcServices;
+use App\Http\Services\v1\DataMaster\Material\MaterialServices;
 use App\Jobs\Material\ExportDraftMaterials;
 use App\Jobs\Material\ExportMaterials;
 
-class MaterialUpvcController extends BaseController
+class MaterialController extends BaseController
 {
-    private $materialUpvcServices;
+    private $materialServices;
     private $moduleName;
 
-    public function __construct(MaterialUpvcServices $materialUpvcServices)
+    public function __construct(MaterialServices $materialServices)
     {
-        $this->materialUpvcServices = $materialUpvcServices;
-        $this->moduleName = 'Material UPVC';
+        $this->materialServices = $materialServices;
+        $this->moduleName = 'Material';
     }
 
     public function list(Request $request)
@@ -27,7 +27,7 @@ class MaterialUpvcController extends BaseController
                 $props += [
                     'status'    => $request['status']
                 ];
-                $material = $this->materialUpvcServices->fetchAll($props);
+                $material = $this->materialServices->fetchAll($props);
 
                 return $this->returnResponse('success', self::HTTP_OK, 'Daftar material', $material);
             } catch (Exception $ex) {
@@ -46,7 +46,7 @@ class MaterialUpvcController extends BaseController
                 $props += [
                     'status'    => $request['status']
                 ];
-                $material = $this->materialUpvcServices->fetchLimit($props);
+                $material = $this->materialServices->fetchLimit($props);
 
                 return $this->returnResponse('success', self::HTTP_OK, 'Daftar material', $material);
             } catch (Exception $ex) {
@@ -62,13 +62,15 @@ class MaterialUpvcController extends BaseController
         // if ($this->checkPermissions($this->moduleName, 'create') == true) {
             try {
                 $rules = [
-                    'kode'                  => 'required|max:150|unique:material_upvc,kode,NULL,id,deleted_at,NULL',
+                    'kode'                  => 'required|max:150|unique:material,kode,NULL,id,deleted_at,NULL',
                     'nama_material'         => 'required|max:255',
                     'panjang'               => 'nullable|numeric',
                     'satuan'                => 'required',
                     'warna'                 => 'nullable',
                     'gambar'                => 'nullable|mimes:jpeg,jpg,png|max:2048',
                     'harga_beli_terakhir'   => 'nullable|numeric',
+                    'harga_beli_konversi'   => 'nullable|numeric',
+                    'harga_jual'            => 'nullable|numeric',
                     'status'                => 'required',
                 ];
                 $validator = $this->returnValidator($request->all(), $rules);
@@ -76,7 +78,7 @@ class MaterialUpvcController extends BaseController
                     return $this->returnResponse('error', self::HTTP_UNPROCESSABLE_ENTITY, $validator->errors());
                 }
 
-                $material = $this->materialUpvcServices->createMaterial($request);
+                $material = $this->materialServices->createMaterial($request);
                 return $this->returnResponse('success', self::HTTP_OK, 'Material berhasil dibuat', $material);
             } catch (Exception $ex) {
                 return $this->returnExceptionResponse('error', self::HTTP_BAD_REQUEST, $ex);
@@ -90,7 +92,7 @@ class MaterialUpvcController extends BaseController
     {
         // if ($this->checkPermissions($this->moduleName, 'view') == true) {
             try {
-                $material = $this->materialUpvcServices->fetchById($id);
+                $material = $this->materialServices->fetchById($id);
                 return $this->returnResponse('success', self::HTTP_OK, 'Detail material', $material);
             } catch (Exception $ex) {
                 return $this->returnExceptionResponse('error', self::HTTP_BAD_REQUEST, $ex);
@@ -105,13 +107,15 @@ class MaterialUpvcController extends BaseController
         // if ($this->checkPermissions($this->moduleName, 'edit') == true) {
             try {
                 $rules = [
-                    'kode'                  => 'required|max:150|unique:material_upvc,kode,'.$id.',id,deleted_at,NULL',
+                    'kode'                  => 'required|max:150|unique:material,kode,'.$id.',id,deleted_at,NULL',
                     'nama_material'         => 'required|max:255',
                     'panjang'               => 'nullable|numeric',
                     'satuan'                => 'required',
                     'warna'                 => 'nullable',
                     'gambar'                => 'nullable|mimes:jpeg,jpg,png|max:2048',
                     'harga_beli_terakhir'   => 'nullable|numeric',
+                    'harga_beli_konversi'   => 'nullable|numeric',
+                    'harga_jual'            => 'nullable|numeric',
                     'status'                => 'required',
                 ];
                 $validator = $this->returnValidator($request->all(), $rules);
@@ -119,7 +123,7 @@ class MaterialUpvcController extends BaseController
                     return $this->returnResponse('error', self::HTTP_UNPROCESSABLE_ENTITY, $validator->errors());
                 }
 
-                $material = $this->materialUpvcServices->updateMaterial($request, $id);
+                $material = $this->materialServices->updateMaterial($request, $id);
                 return $this->returnResponse('success', self::HTTP_OK, 'Material berhasil diperbaharui', $material);
             } catch (Exception $ex) {
                 return $this->returnExceptionResponse('error', self::HTTP_BAD_REQUEST, $ex);
@@ -133,7 +137,7 @@ class MaterialUpvcController extends BaseController
     {
         // if ($this->checkPermissions($this->moduleName, 'delete') == true) {
             try {
-                $material = $this->materialUpvcServices->destroyMaterial($id);
+                $material = $this->materialServices->destroyMaterial($id);
                 return $this->returnResponse('success', self::HTTP_OK, 'Catatan berhasil dihapus!', $material);
             } catch (Exception $ex) {
                 return $this->returnExceptionResponse('error', self::HTTP_BAD_REQUEST, $ex);
@@ -148,7 +152,7 @@ class MaterialUpvcController extends BaseController
         // if ($this->checkPermissions($this->moduleName, 'delete') == true) {
             try {
                 $props = $request->data;
-                $material = $this->materialUpvcServices->destroyMultipleMaterial($props);
+                $material = $this->materialServices->destroyMultipleMaterial($props);
 
                 return $this->returnResponse('success', self::HTTP_OK, 'Catatan berhasil dihapus!', $material);
             } catch (Exception $ex) {
@@ -164,10 +168,10 @@ class MaterialUpvcController extends BaseController
         try {
             $props = $this->getBaseQueryParams($request, []);
             $broadcastUrl = config('app.broadcast_url').'/global/post';
-            $dataResponse = $this->materialUpvcServices->fetchExportData($props);
+            $dataResponse = $this->materialServices->fetchExportData($props);
             $params = [
                 'url'   => $broadcastUrl,
-                'key'   => 'downloadMaterialUPVC',
+                'key'   => 'downloadMaterial',
                 'data'  => $dataResponse['data'],
                 'props' => $props
             ];
@@ -203,7 +207,7 @@ class MaterialUpvcController extends BaseController
     {
         try {
             $props = $this->getBaseQueryParams($request, []);
-            $material = $this->materialUpvcServices->fetchDataOptions($props);
+            $material = $this->materialServices->fetchDataOptions($props);
 
             return $this->returnResponse('success', self::HTTP_OK, 'Daftar material', $material);
         } catch (Exception $ex) {

@@ -4,7 +4,7 @@ namespace App\Models;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PaketProdukMaterialUpvc extends BaseModel
+class PaketProdukMaterial extends BaseModel
 {
     use SoftDeletes;
 
@@ -20,10 +20,10 @@ class PaketProdukMaterialUpvc extends BaseModel
     ];
 
     protected $fillable = [
-        'paket_produk_id', 'aksesoris_id', 'kode', 'nama_material', 'warna', 'satuan', 'tipe', 'created_id', 'updated_id',
+        'paket_produk_id', 'material_id', 'kode', 'nama_material', 'warna', 'panjang', 'satuan', 'tipe', 'created_id', 'updated_id',
     ];
 
-    protected $table = 'paket_produk_material_upvc';
+    protected $table = 'paket_produk_material';
 
     public function paket_produk(){
         return $this->belongsTo(PaketProduk::class, 'paket_produk_id', 'id');
